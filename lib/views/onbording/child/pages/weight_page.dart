@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:speedometer/speedometer.dart';
+import 'package:syncfusion_flutter_gauges/gauges.dart';
 
-import '../widgets/unitselectionButton_widgets.dart'; // Import the speedometer package
+import '../widgets/unitselectionButton_widgets.dart';
+// Assuming you have this widget
 
 class WeightPage extends StatefulWidget {
   const WeightPage({super.key});
@@ -23,13 +24,18 @@ class _WeightPageState extends State<WeightPage> {
     });
   }
 
-  // This is the function to convert weight to pounds for the display.
+  // Convert weight to pounds for the display.
   String get weightDisplay {
     if (selectedUnit == "Pounds") {
       return "${(weight * 2.20462).toStringAsFixed(2)} lbs"; // Convert kg to pounds
     } else {
       return "$weight kg"; // Default to kg
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -84,12 +90,49 @@ class _WeightPageState extends State<WeightPage> {
             Spacer(flex: 1),
             SizedBox(height: 20.h),
 
-            // Display the Speedometer
+            // Display the Speedometer (Radial Gauge)
             Container(
-              height: 200.h, // Adjust the height of the speedometer
-              width: 200.w, // Adjust the width of the speedometer
-              child: SpeedOMeter(
-                start: null, end: null, highlightStart: null, highlightEnd: null, themeData: null, eventObservable: null, // End angle for the scale
+              height: 200.h, // Adjust the height of the gauge
+              width: 200.w, // Adjust the width of the gauge
+              child: SfRadialGauge(
+                axes: <RadialAxis>[
+                  RadialAxis(
+                    minimum: 0,
+                    maximum: 180, // Set max value for the scale (180 degree scale)
+                    pointers: <GaugePointer>[
+                      NeedlePointer(
+                        value: weight, // Needle will move based on the weight value
+                        needleColor: Colors.black,
+                        knobStyle: KnobStyle(color: Colors.black),
+                      ),
+                    ],
+                    ranges: <GaugeRange>[
+                      GaugeRange(
+                        startValue: 0,
+                        endValue: 180,
+                        color: Colors.grey.shade300,
+                        startWidth: 10,
+                        endWidth: 10,
+                      ),
+                    ],
+                    annotations: <GaugeAnnotation>[
+                      GaugeAnnotation(
+                        widget: Text(
+                          weight.toStringAsFixed(0),
+                          style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+                        ),
+                        angle: 90,
+                        positionFactor: 0.2,
+                      ),
+                    ],
+                    axisLineStyle: AxisLineStyle(
+                      thickness: 12,
+                      color: Colors.grey.shade300,
+                    ),
+                    labelOffset: 10,
+                   // labelStyle: GaugeTextStyle(fontSize: 14),
+                  ),
+                ],
               ),
             ),
             SizedBox(height: 20.h),
