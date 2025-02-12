@@ -89,7 +89,6 @@ class _WeightPageState extends State<WeightPage> {
               height: 200.h, // Adjust the height of the speedometer
               width: 200.w, // Adjust the width of the speedometer
               child: SpeedOMeter(
-                
                 start: null, end: null, highlightStart: null, highlightEnd: null, themeData: null, eventObservable: null, // End angle for the scale
               ),
             ),
