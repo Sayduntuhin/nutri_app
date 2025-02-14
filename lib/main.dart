@@ -19,6 +19,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
         useMaterial3: true,
         scaffoldBackgroundColor: Color(0xffF3F6FF),
+        appBarTheme: const AppBarTheme(
+          backgroundColor:  Color(0xffF3F6FF),
+          foregroundColor: Color(0xffF3F6FF),
+          surfaceTintColor: Color(0xffF3F6FF),
+        )
       ),
       builder: (context, child) {
         ScreenUtil.init(

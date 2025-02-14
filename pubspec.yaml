@@ -41,6 +41,10 @@ dependencies:
   country_picker: ^2.0.27
   speedometer: ^1.2.2
   syncfusion_flutter_gauges: ^28.2.5
+  syncfusion_flutter_charts: ^28.2.5+1
+  pie_chart: ^5.4.0
+  scroll_date_picker:
+    path: scroll_date_picker-dev
 
 
 dev_dependencies:

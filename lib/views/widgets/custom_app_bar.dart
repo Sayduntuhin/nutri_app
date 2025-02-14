@@ -14,6 +14,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+
       children: [
         AppBar(
           backgroundColor: Color(0xffF3F6FF),
@@ -39,6 +40,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 SliderTheme(
                   data: SliderThemeData(
                     thumbShape: RoundSliderThumbShape(enabledThumbRadius: 5.r),
+
                   ),
                   child: Slider(
                     value: progress,

@@ -1,0 +1,131 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:nutri_app/themes/text_size.dart';
+
+class TargetPage extends StatefulWidget {
+  const TargetPage({super.key});
+
+  @override
+  State<TargetPage> createState() => _TargetPage();
+}
+
+class _TargetPage extends State<TargetPage> {
+  double sliderValue = 0.0; // The slider's initial value (0.0 is the start)
+  String speedText = 'Slow'; // Default label for the speed
+
+  // This function is used to change the speed text based on slider value
+  void _updateSpeedLabel(double value) {
+    setState(() {
+      sliderValue = value;
+      if (value >= 1) {
+        speedText = 'Fast';
+      } else if (value == .5) {
+        speedText = 'Normal';
+      } else {
+        speedText = 'Slow';
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.only(left: 35.w, right: 20.w, top: 20.h),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'How Fast You Want To Catch Your Target?',
+              style: TextStyle(
+                  fontSize: textSize,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.5),
+              textAlign: TextAlign.center,
+            ),
+            Spacer(flex: 2,),
+            Padding(
+              padding: const EdgeInsets.only(left: 12,right: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  // Slow Icon and label
+                  Column(
+                    children: [
+                      Text('Slow', style: TextStyle(fontSize: 14.sp)),
+                      SvgPicture.asset(
+                        'assets/svg/slow.svg',
+                        width: 24.w,
+                        height: 24.h,
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: SvgPicture.asset(
+                      'assets/svg/leftarrow.svg',
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Text('Normal', style: TextStyle(fontSize: 14.sp)),
+                      SvgPicture.asset(
+                        'assets/svg/normal.svg',
+                        width: 24.w,
+                        height: 24.h,
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: SvgPicture.asset(
+                      'assets/svg/rightarrow.svg',
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Text('Fast', style: TextStyle(fontSize: 14.sp)),
+                      SvgPicture.asset(
+                        'assets/svg/fast.svg',
+                        width: 24.w,
+                        height: 24.h,
+                      ),
+
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 10,),
+            SliderTheme(
+              data: SliderTheme.of(context).copyWith(
+                trackHeight: 10,
+                overlayShape: SliderComponentShape.noOverlay,
+              ),
+              child: Slider(
+                value: sliderValue,
+                min: 0.0,
+                max: 1.0,
+                activeColor: Color(0xff090F03),
+                inactiveColor: Color(0xffD1D6CC),
+                divisions: 2,
+                onChanged: (value) {
+                  _updateSpeedLabel(
+                      value); // Update speed label based on slider position
+                },
+              ),
+            ),
+            SizedBox(height: 20.h),
+            Text(
+              speedText,
+              style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+            ),
+            Spacer(flex: 2,),
+          ],
+        ),
+      ),
+    );
+  }
+}

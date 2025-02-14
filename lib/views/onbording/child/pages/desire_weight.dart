@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
-
 import '../widgets/unitselectionButton_widgets.dart';
-// Assuming you have this widget
 
-class WeightPage extends StatefulWidget {
-  const WeightPage({super.key});
+
+class DesireWeightPage extends StatefulWidget {
+  const DesireWeightPage({super.key});
 
   @override
-  State<WeightPage> createState() => _WeightPageState();
+  State<DesireWeightPage> createState() => _DesireWeightPage();
 }
 
-class _WeightPageState extends State<WeightPage> {
+class _DesireWeightPage extends State<DesireWeightPage> {
   double weight = 0.0;
   String selectedUnit = "Kilogram";
   final TextEditingController weightController = TextEditingController();
@@ -49,7 +48,7 @@ class _WeightPageState extends State<WeightPage> {
             children: [
               Center(
                 child: Text(
-                  'Enter your weight',
+                  'Enter your Desired weight',
                   style: TextStyle(
                       fontSize: 24.sp,
                       fontWeight: FontWeight.bold,
@@ -57,12 +56,7 @@ class _WeightPageState extends State<WeightPage> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              Text(
-                'This will be utilized to adjust your tailored plan.',
-                style: TextStyle(fontSize: 14.sp),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 15.h),
+              SizedBox(height: 0.05.sh),
               Container(
                 height: 45.h,
                 width: 325.w,
@@ -88,11 +82,7 @@ class _WeightPageState extends State<WeightPage> {
                   ],
                 ),
               ),
-              // Spacer(flex: 1),
-              SizedBox(
-                height: 0.020.sh,
-              ),
-              SfRadialGauge(
+               /*SfRadialGauge(
                 axes: <RadialAxis>[
                   RadialAxis(
                     minimum: 0,
@@ -103,7 +93,7 @@ class _WeightPageState extends State<WeightPage> {
                     pointers: <GaugePointer>[
                       NeedlePointer(
                         value:
-                            weight, // Needle will move based on the weight value
+                        weight, // Needle will move based on the weight value
                         needleColor: Colors.black,
                         knobStyle: KnobStyle(color: Colors.black),
                         needleEndWidth: 8,
@@ -141,7 +131,7 @@ class _WeightPageState extends State<WeightPage> {
                     interval: 20,
                   ),
                 ],
-              ),
+              ),*/
               Padding(
                 padding: EdgeInsets.only(left: 0.2.sw, right: 0.25.sw),
                 child: Container(
@@ -155,7 +145,7 @@ class _WeightPageState extends State<WeightPage> {
                       ),
                     ],
                     borderRadius:
-                        BorderRadius.circular(10.r), // Rounded corners
+                    BorderRadius.circular(10.r), // Rounded corners
                     color: Colors.white,
                   ),
                   child: Row(
@@ -187,10 +177,10 @@ class _WeightPageState extends State<WeightPage> {
                               borderRadius: BorderRadius.circular(
                                   10.r), // Rounded corners for text field
                               borderSide:
-                                  BorderSide.none, // Remove default border
+                              BorderSide.none, // Remove default border
                             ),
                             contentPadding:
-                                EdgeInsets.symmetric(horizontal: 10.w),
+                            EdgeInsets.symmetric(horizontal: 10.w),
                           ),
                           keyboardType: TextInputType.number,
                           onChanged: (value) {
