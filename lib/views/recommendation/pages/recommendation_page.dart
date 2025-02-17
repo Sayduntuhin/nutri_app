@@ -137,7 +137,7 @@ class _RecommendationPage extends State<RecommendationPage> {
                           letterSpacing: 1.2),
                       textAlign: TextAlign.center,
                     ),
-                 /*   SizedBox(
+           /*            SizedBox(
                       height: 220,
                       child: SfCircularChart(
                         annotations: <CircularChartAnnotation>[
@@ -221,19 +221,54 @@ class _RecommendationPage extends State<RecommendationPage> {
                     ),*/
                     SizedBox(height: 20.h,),
                     Container(
-
-                      height: 220,
+                      height: 0.2.sh,
                       child: PieChart(
-                        centerText: "1800" ,
                         dataMap: dataMap,
-                        ringStrokeWidth: 40,
-                        chartType: ChartType.ring,
-                        baseChartColor: Colors.grey[50]!.withOpacity(0.15),
+                        animationDuration: Duration(milliseconds: 1000),
+                        chartLegendSpacing: 50,
+                        chartRadius: MediaQuery.of(context).size.width / 3.2,
                         colorList: colorList,
-                        chartValuesOptions: ChartValuesOptions(
-                          showChartValuesInPercentage: true,
+                        initialAngleInDegree: 270,
+                        chartType: ChartType.ring,
+                        ringStrokeWidth: 32,
+                        centerWidget: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              text: '1800 ',
+                              style: TextStyle(
+                                color: textColor,
+                                fontSize: 24.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              children: const <TextSpan>[
+                                TextSpan(
+                                  text: '\nkcal',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 14),
+                                ),
+                              ],
+                            ),
                         ),
-                        totalValue: 3,
+                        centerTextStyle: TextStyle(
+                          fontSize: 20,
+                          color: textColor,
+                          fontWeight: FontWeight.bold
+                        ),
+                        legendOptions: LegendOptions(
+                          showLegendsInRow: false,
+                          showLegends: true,
+                          legendTextStyle: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        chartValuesOptions: ChartValuesOptions(
+                          showChartValueBackground: true,
+                          showChartValues: true,
+                          showChartValuesInPercentage: true,
+                          showChartValuesOutside: true,
+                          decimalPlaces: 0,
+                        ),
                       ),
                     ),
 

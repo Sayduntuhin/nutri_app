@@ -90,7 +90,7 @@ class WelcomeScreen extends StatelessWidget {
                   CustomButton(
                       text: "Get Start Now",
                       onPressed: () {
-                        context.push('/mainpage');
+                        context.push('/multisteppage');
                       })
                 ],
               ),

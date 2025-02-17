@@ -112,7 +112,10 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               SizedBox(height: 0.07.sh),
-              CustomButton(text: "Login", onPressed: () {}),
+              CustomButton(text: "Login", onPressed: () {
+                context.go('/mainpage');
+
+              }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
