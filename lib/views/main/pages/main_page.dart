@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nutri_app/views/meal/pages/meal_page.dart';
+import 'package:nutri_app/views/settings/pages/setting_page.dart';
+import '../../analytics/pages/analytics_page.dart';
 import '../../home/pages/home_page.dart';
 import '../widgets/custom_nav_bar.dart';
 class MainPage extends StatefulWidget {
@@ -13,7 +15,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
   final List<Widget> _pages = [
-    HomePage(), HomePage(), MealPage(), HomePage(),
+    const HomePage(), AnalyticsPage(), const MealPage(), const SettingsPage(),
   ];
 
   @override

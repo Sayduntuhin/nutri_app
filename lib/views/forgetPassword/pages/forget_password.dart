@@ -37,7 +37,7 @@ class ForgetPassword extends StatelessWidget {
                 prefixIcon: Icons.mail),
           ),
           SizedBox(height: 0.05.sh),
-          CustomButton(text: "Continue", onPressed: () {
+          CustomButton(width: 350.w,text: "Continue", onPressed: () {
 
             context.push("/varifications");
           })

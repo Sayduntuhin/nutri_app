@@ -87,7 +87,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           ),
 
           SizedBox(height: 0.05.sh),
-          CustomButton(text: "Save Password", onPressed: () {
+          CustomButton(width: 350.w, text: "Save Password", onPressed: () {
             context.push("/varifications");
           }),
           Row(

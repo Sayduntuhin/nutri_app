@@ -339,7 +339,9 @@ class _RecommendationPage extends State<RecommendationPage> {
               SizedBox(height: 10.h),
               ...strategies.map((strategy) => _buildStrategyText(strategy)).toList(),
               SizedBox(height: 30.h),
-              CustomButton(text: "Let's Begin!", onPressed: (){
+              CustomButton(
+                  width: 350.w,
+                  text: "Let's Begin!", onPressed: (){
                 context.go('/login');
               }),
 

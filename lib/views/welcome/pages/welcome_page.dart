@@ -89,6 +89,7 @@ class WelcomeScreen extends StatelessWidget {
                   SizedBox(height: 100.h),
                   CustomButton(
                       text: "Get Start Now",
+                      width: 350.w,
                       onPressed: () {
                         context.push('/multisteppage');
                       })

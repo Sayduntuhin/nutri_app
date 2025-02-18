@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomButton extends StatelessWidget {
   final String text;
+  double? width = 350.w;
+  double? height;
   final VoidCallback onPressed;
   final bool disableButton;
 
-  const CustomButton({Key? key, required this.text, required this.onPressed, this.disableButton = false}) : super(key: key);
+   CustomButton({Key? key, required this.text, required this.onPressed, this.disableButton = false, this.width, this.height}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 350.w,
+      width: width,
+      height: height,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(

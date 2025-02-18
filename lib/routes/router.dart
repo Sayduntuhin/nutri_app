@@ -7,6 +7,10 @@ import 'package:nutri_app/views/login/pages/login_page.dart';
 import 'package:nutri_app/views/main/pages/main_page.dart';
 import 'package:nutri_app/views/onbording/motherPage/multi_setip_page.dart';
 import 'package:nutri_app/views/recommendation/pages/recommendation_page.dart';
+import 'package:nutri_app/views/settings/pages/adjust_your_goal_page.dart';
+import 'package:nutri_app/views/settings/pages/personal_details_page.dart';
+import 'package:nutri_app/views/settings/pages/privacy_policy_page.dart';
+import 'package:nutri_app/views/settings/pages/term_and_conditions_page.dart';
 import 'package:nutri_app/views/signup/pages/sign_up_page.dart';
 import '../views/foodScanner/pages/food_scanner_page.dart';
 import '../views/welcome/pages/welcome_page.dart';
@@ -57,6 +61,21 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/foodscanner',
       builder: (context, state) => ScannerPage(),
-    )
+    ),
+    GoRoute(
+      path: '/personaldetails',
+      builder: (context, state) => PersonalDetailsPage(),
+    ),   GoRoute(
+      path: '/termsandconditions',
+      builder: (context, state) => TermsAndConditionsPage(),
+    ), GoRoute(
+      path: '/privacypolicy',
+      builder: (context, state) => PrivacyPolicyPage(),
+    ),
+    GoRoute(
+      path: '/adjustgoal',
+      builder: (context, state) => AdjustGoalPage(),
+    ),
+
   ],
 );

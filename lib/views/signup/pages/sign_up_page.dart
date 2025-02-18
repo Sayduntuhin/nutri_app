@@ -82,7 +82,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ],
               ),
               SizedBox(height: 0.07.sh),
-              CustomButton(text: "Create", onPressed: () {}),
+              CustomButton(width: 350.w, text: "Create", onPressed: () {}),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

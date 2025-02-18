@@ -191,7 +191,7 @@ class _VarificationsState extends State<Varifications> {
               ],
             ),
           ),
-          CustomButton(text: "Continue", onPressed: () {
+          CustomButton(width: 350.w,text: "Continue", onPressed: () {
             context.push('/resetpassword');
 
           }),

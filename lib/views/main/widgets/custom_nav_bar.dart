@@ -17,7 +17,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 15,bottom: 20,top: 20, right: 15),
       child: Container(
-        padding: EdgeInsets.only(top: 6),
+        padding: EdgeInsets.only(top: 10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50),
           color: Color(0xff090F03),
