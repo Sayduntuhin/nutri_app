@@ -1,295 +1,186 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'dart:ui';
 
-import '../../../themes/appColour.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 
-class LineChartSample2 extends StatefulWidget {
-  const LineChartSample2({super.key});
-
-  @override
-  State<LineChartSample2> createState() => _LineChartSample2State();
-}
-
-class _LineChartSample2State extends State<LineChartSample2> {
-  List<Color> gradientColors = [
-    AppColors.contentColorCyan,
-    AppColors.contentColorBlue,
-  ];
-
-  bool showAvg = false;
-
+class ChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        AspectRatio(
-          aspectRatio: 1.70,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              right: 18,
-              left: 12,
-              top: 24,
-              bottom: 12,
-            ),
-            child: LineChart(
-              showAvg ? avgData() : mainData(),
-            ),
-          ),
-        ),
-        SizedBox(
-          width: 60,
-          height: 34,
-          child: TextButton(
-            onPressed: () {
-              setState(() {
-                showAvg = !showAvg;
-              });
-            },
-            child: Text(
-              'avg',
-              style: TextStyle(
-                fontSize: 12,
-                color: showAvg
-                    ? Colors.white.withValues(alpha: 0.5)
-                    : Colors.white,
+    return Padding(
+      padding: EdgeInsets.all(10.w),
+      child: SizedBox(
+        height: 400.h,
+        child: Card(
+          color: Colors.white,
+          elevation: .1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 10,left: 15,right: 15,bottom: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      "Calorie (Kcal)",
+                      style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                    ),
+                    Spacer(),
+                    Text(
+                      "Weekly Intake",
+                      style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w300),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: 16,
-    );
-    Widget text;
-    switch (value.toInt()) {
-      case 2:
-        text = const Text('MAR', style: style);
-        break;
-      case 5:
-        text = const Text('JUN', style: style);
-        break;
-      case 8:
-        text = const Text('SEP', style: style);
-        break;
-      default:
-        text = const Text('', style: style);
-        break;
-    }
-
-    return SideTitleWidget(
-      meta: meta,
-      child: text,
-    );
-  }
-
-  Widget leftTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: 15,
-    );
-    String text;
-    switch (value.toInt()) {
-      case 1:
-        text = '10K';
-        break;
-      case 3:
-        text = '30k';
-        break;
-      case 5:
-        text = '50k';
-        break;
-      default:
-        return Container();
-    }
-
-    return Text(text, style: style, textAlign: TextAlign.left);
-  }
-
-  LineChartData mainData() {
-    return LineChartData(
-      gridData: FlGridData(
-        show: true,
-        drawVerticalLine: true,
-        horizontalInterval: 1,
-        verticalInterval: 1,
-        getDrawingHorizontalLine: (value) {
-          return const FlLine(
-            color: AppColors.mainGridLineColor,
-            strokeWidth: 1,
-          );
-        },
-        getDrawingVerticalLine: (value) {
-          return const FlLine(
-            color: AppColors.mainGridLineColor,
-            strokeWidth: 1,
-          );
-        },
-      ),
-      titlesData: FlTitlesData(
-        show: true,
-        rightTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        topTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 30,
-            interval: 1,
-            getTitlesWidget: bottomTitleWidgets,
-          ),
-        ),
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            interval: 1,
-            getTitlesWidget: leftTitleWidgets,
-            reservedSize: 42,
-          ),
-        ),
-      ),
-      borderData: FlBorderData(
-        show: true,
-        border: Border.all(color: const Color(0xff37434d)),
-      ),
-      minX: 0,
-      maxX: 11,
-      minY: 0,
-      maxY: 6,
-      lineBarsData: [
-        LineChartBarData(
-          spots: const [
-            FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
-          ],
-          isCurved: true,
-          gradient: LinearGradient(
-            colors: gradientColors,
-          ),
-          barWidth: 5,
-          isStrokeCapRound: true,
-          dotData: const FlDotData(
-            show: false,
-          ),
-          belowBarData: BarAreaData(
-            show: true,
-            gradient: LinearGradient(
-              colors: gradientColors
-                  .map((color) => color.withValues(alpha: 0.3))
-                  .toList(),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  LineChartData avgData() {
-    return LineChartData(
-      lineTouchData: const LineTouchData(enabled: false),
-      gridData: FlGridData(
-        show: true,
-        drawHorizontalLine: true,
-        verticalInterval: 1,
-        horizontalInterval: 1,
-        getDrawingVerticalLine: (value) {
-          return const FlLine(
-            color: Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
-        getDrawingHorizontalLine: (value) {
-          return const FlLine(
-            color: Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
-      ),
-      titlesData: FlTitlesData(
-        show: true,
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 30,
-            getTitlesWidget: bottomTitleWidgets,
-            interval: 1,
-          ),
-        ),
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            getTitlesWidget: leftTitleWidgets,
-            reservedSize: 42,
-            interval: 1,
-          ),
-        ),
-        topTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-        rightTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
-        ),
-      ),
-      borderData: FlBorderData(
-        show: true,
-        border: Border.all(color: const Color(0xff37434d)),
-      ),
-      minX: 0,
-      maxX: 11,
-      minY: 0,
-      maxY: 6,
-      lineBarsData: [
-        LineChartBarData(
-          spots: const [
-            FlSpot(0, 3.44),
-            FlSpot(2.6, 3.44),
-            FlSpot(4.9, 3.44),
-            FlSpot(6.8, 3.44),
-            FlSpot(8, 3.44),
-            FlSpot(9.5, 3.44),
-            FlSpot(11, 3.44),
-          ],
-          isCurved: true,
-          gradient: LinearGradient(
-            colors: [
-              ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                  .lerp(0.2)!,
-              ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                  .lerp(0.2)!,
+              SizedBox(
+                  width: .85.sw,
+                  child: Divider(color: Color(0xffE0E0E0),)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Yesterday",
+                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
+                  ),
+                  SizedBox( width: 10.w),
+                  Text(
+                    '•', // Bullet point symbol
+                    style: TextStyle(fontSize: 30.sp, color: Color(0xffA1CE50)),
+                  ),
+                  SizedBox( width: 10.w),
+                  Text(
+                    "Calorie Goal",
+                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.h),
+              Padding(
+                padding: const EdgeInsets.only(left: 40),
+                child: CustomPaint(
+                  size: Size(310.w, 230.h,), // Chart size
+                  painter: CustomChartPainter(),
+                ),
+              ),
             ],
           ),
-          barWidth: 5,
-          isStrokeCapRound: true,
-          dotData: const FlDotData(
-            show: false,
-          ),
-          belowBarData: BarAreaData(
-            show: true,
-            gradient: LinearGradient(
-              colors: [
-                ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                    .lerp(0.2)!
-                    .withValues(alpha: 0.1),
-                ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                    .lerp(0.2)!
-                    .withValues(alpha: 0.1),
-              ],
-            ),
-          ),
         ),
-      ],
+      ),
     );
   }
+}
+
+class CustomChartPainter extends CustomPainter {
+  final List<double> dataPoints = [2500, 2400, 2500, 3000, 2550, 2500];
+  final List<String> xLabels = ['15', '16', '17', '18', '19', '20'];
+  final List<String> yLabels = ['500', '1000', '1500', '2000', '2500', '3000'];
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint gridPaint = Paint()
+      ..color = Colors.black12
+      ..strokeWidth = 0.5;
+
+    Paint linePaint = Paint()
+      ..color = Color(0xffA1CE50)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 4;
+
+    Paint fillPaint = Paint()
+      ..shader = LinearGradient(
+        colors: [
+          Color(0xFFCEE4B1).withOpacity(0.8),
+          Color(0xFFCEE4B1).withOpacity(0.1),
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ).createShader(Rect.fromLTRB(0, 0, size.width, size.height))
+      ..style = PaintingStyle.fill;
+
+    Paint dotPaint = Paint()
+      ..color = Color(0xffA1CE50)
+      ..style = PaintingStyle.fill;
+
+    Paint borderPaint = Paint()
+      ..color = Colors.white
+      ..strokeWidth = 2
+      ..style = PaintingStyle.fill;
+
+    double minX = 0;
+    double maxX = dataPoints.length - 1;
+    double minY = 500;
+    double maxY = 3000;
+
+    double xSpacing = size.width / (dataPoints.length - 1);
+    double yScaling = size.height / (maxY - minY);
+
+    Path path = Path();
+    Path fillPath = Path();
+    List<Offset> points = [];
+
+    for (int i = 0; i < dataPoints.length; i++) {
+      double x = i * xSpacing;
+      double y = size.height - (dataPoints[i] - minY) * yScaling;
+      points.add(Offset(x, y));
+    }
+
+    path.moveTo(points.first.dx, points.first.dy);
+    fillPath.moveTo(points.first.dx, points.first.dy);
+
+    for (int i = 0; i < points.length - 1; i++) {
+      double x1 = points[i].dx;
+      double y1 = points[i].dy;
+      double x2 = points[i + 1].dx;
+      double y2 = points[i + 1].dy;
+
+      double controlX1 = (x1 + x2) / 2;
+      double controlY1 = y1;
+      double controlX2 = (x1 + x2) / 2;
+      double controlY2 = y2;
+
+      path.cubicTo(controlX1, controlY1, controlX2, controlY2, x2, y2);
+      fillPath.cubicTo(controlX1, controlY1, controlX2, controlY2, x2, y2);
+    }
+
+    fillPath.lineTo(points.last.dx, size.height);
+    fillPath.lineTo(points.first.dx, size.height);
+    fillPath.close();
+
+    canvas.drawPath(fillPath, fillPaint);
+    canvas.drawPath(path, linePaint);
+
+    for (var point in points) {
+      canvas.drawCircle(point, 6, dotPaint);
+      canvas.drawCircle(point, 4, borderPaint);
+    }
+
+    TextPainter textPainter = TextPainter(
+      textDirection: TextDirection.ltr,
+    );
+
+    for (int i = 0; i < xLabels.length; i++) {
+      textPainter.text = TextSpan(
+        text: xLabels[i],
+        style: TextStyle(fontSize: 12, color: Colors.black),
+      );
+      textPainter.layout();
+      textPainter.paint(canvas,
+          Offset(i * xSpacing - textPainter.width / 2, size.height + 4));
+    }
+
+    for (int i = 0; i < yLabels.length; i++) {
+      double yPos = size.height - (i * (size.height / (yLabels.length - 1)));
+      textPainter.text = TextSpan(
+        text: yLabels[i],
+        style: TextStyle(fontSize: 12, color: Colors.black),
+      );
+      textPainter.layout();
+      textPainter.paint(canvas, Offset(-40, yPos - textPainter.height / 2));
+    }
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }

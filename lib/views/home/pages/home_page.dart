@@ -337,7 +337,9 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400,color: Color(0xff9D9D9D)),
             ),
             SizedBox(width: 10,),
-            SvgPicture.asset('assets/svg/plus_icons.svg',width: 24,)
+            GestureDetector(
+                onTap: (){context.push('/dailyactivitypage');},
+                child: SvgPicture.asset('assets/svg/plus_icons.svg',width: 24,))
           ],
         ),
         SizedBox(height: 20.h),
