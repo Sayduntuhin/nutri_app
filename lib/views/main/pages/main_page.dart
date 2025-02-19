@@ -27,6 +27,7 @@ class _MainPageState extends State<MainPage> {
         onPressed: () {
           context.push("/foodscanner");
         },
+        shape:  CircleBorder(),
         backgroundColor: Colors.black,
         child: SvgPicture.asset('assets/svg/scan.svg'),
       ), // Display the page based on selected tab

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../widgets/height_meter.dart';
 import '../widgets/unitselectionButton_widgets.dart';
 
 class HeightPage extends StatefulWidget {
@@ -13,6 +14,8 @@ class HeightPage extends StatefulWidget {
 class _HeightPageState extends State<HeightPage> {
   double height = 185;
   String selectedUnit = "Centimeter";
+
+
 
   void onUnitSelect(String unit) {
     setState(() {
@@ -66,26 +69,19 @@ class _HeightPageState extends State<HeightPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
                   UnitSelectionButton(
                     unitText: "Centimeter",
                     selectedUnit: selectedUnit,
                     onUnitSelect: onUnitSelect,
-                    width: 120.w,
+                    width: 150.w,
                   ),
 
                   UnitSelectionButton(
                     unitText: "Feet",
                     selectedUnit: selectedUnit,
                     onUnitSelect: onUnitSelect,
-                    width: 85.w
+                    width: 150.w
                     ,
-                  ),
-                  UnitSelectionButton(
-                    unitText: "Inch",
-                    selectedUnit: selectedUnit,
-                    onUnitSelect: onUnitSelect,
-                    width: 85.w,
                   ),
                 ],
               ),
@@ -95,13 +91,25 @@ class _HeightPageState extends State<HeightPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  width: 150.w,
-                  child: Text(
-                    heightDisplay,
-                    style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+                Container(
+                  height: 500,
+                  width: 150,
+                  child: VerticalScrollPicker(
+                    foregroundItemColor: Color(0xff090F03),
+                    backgroundItemColor: Colors.black.withValues(alpha: 0.1),
+                    bottomValue: 0, // Minimum value at bottom
+                    topValue: 200, // Maximum value at top
+                    interval: 10,
+                    onChanged: (value) {
+                      print("-------------------$value");
+                    },// Step size
                   ),
                 ),
+                 Spacer(flex: 1),
+                // Text(
+                //   heightDisplay,
+                //   style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+                // ),
                 Image.asset("assets/images/male2.png", height: 0.4.sh,)
 
               ],

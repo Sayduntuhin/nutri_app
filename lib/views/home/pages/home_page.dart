@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late final ValueNotifier<DateTime> _selectedDay;
   late final ValueNotifier<DateTime> _focusedDay;
-  int _notificationCount = 3;
+  int _notificationCount = 4;
 
   @override
   void initState() {
@@ -33,59 +33,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      appBar: AppBar(
-        leading: Image.asset(
-          'assets/images/logo.png',
-        ),
-        title: SvgPicture.asset(
-          'assets/svg/calz.svg',
-          width: 60.w,
-        ),
-        centerTitle: true,
-        actions: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              IconButton(
-                icon: SvgPicture.asset(
-                  'assets/svg/notifications.svg',
-                  width: 30.w,
-                ),
-                onPressed: () {
-                },
-              ),
-              if (_notificationCount > 0)
-                Positioned(
-                  right: 2,
-                  top: -5,
-                  child: Container(
-                    padding: EdgeInsets.all(6.w),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle,
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 15.w,
-                      minHeight: 15.w,
-                    ),
-                    child: Center(
-                      child: Text(
-                        '$_notificationCount',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ],
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.h),
+        child: _buildAppBar(context),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -95,8 +45,9 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildCalendar(),
-              SizedBox(height: 30.h),
+              SizedBox(height: 10.h,),
+              buildCalendar(),
+              SizedBox(height: 10.h),
               Container(
                 height: 125.h,
                 decoration: BoxDecoration(
@@ -198,7 +149,65 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildCalendar() {
+  ///////////////////////AppBar Widget////////////////////////
+  Widget _buildAppBar(BuildContext context,) {
+    return AppBar(
+      leading: Image.asset(
+        'assets/images/logo.png',
+      ),
+      title: SvgPicture.asset(
+        'assets/svg/calz.svg',
+        width: 60.w,
+      ),
+      centerTitle: true,
+      actions: [
+        Stack(
+          clipBehavior: Clip.none,
+          children: [
+            IconButton(
+              icon: SvgPicture.asset(
+                'assets/svg/notifications.svg',
+                width: 30.w,
+              ),
+              onPressed: () {
+                context.push('/notification');
+              },
+            ),
+            if (_notificationCount > 0)
+              Positioned(
+                right: 2,
+                top: -5,
+                child: Container(
+                  padding: EdgeInsets.all(6.w),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                  ),
+                  constraints: BoxConstraints(
+                    minWidth: 15.w,
+                    minHeight: 15.w,
+                  ),
+                  child: Center(
+                    child: Text(
+                      '$_notificationCount',
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ],
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    );
+  }
+  //////////////////////Calendar Widget////////////////////////
+  Widget buildCalendar() {
     return TableCalendar(
       firstDay: DateTime.utc(2020, 10, 16),
       lastDay: DateTime.utc(2030, 3, 14),
@@ -212,7 +221,7 @@ class _HomePageState extends State<HomePage> {
           _focusedDay.value = focusedDay;
         });
       },
-
+      headerVisible: false,
       calendarFormat: CalendarFormat.week,
       availableGestures:
           AvailableGestures.horizontalSwipe,
@@ -224,9 +233,9 @@ class _HomePageState extends State<HomePage> {
       ),
       daysOfWeekStyle: DaysOfWeekStyle(
         weekdayStyle:
-            TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
         weekendStyle:
-            TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+            TextStyle(color: Colors.black, fontWeight: FontWeight.w400),
       ),
       calendarStyle: CalendarStyle(
         selectedDecoration: BoxDecoration(
@@ -243,7 +252,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
   Widget _buildInfoCards() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -254,7 +262,6 @@ class _HomePageState extends State<HomePage> {
       ],
     );
   }
-
   Widget _buildBurnedCaloriesCircle(
       double width, double height, String Svgpath, double circleWidth,double imageWidth) {
     return Container(
@@ -272,7 +279,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
   Widget _buildInfoCard(String value, String label, String Svgpath) {
     return Card(
       color: Colors.white,
@@ -320,7 +326,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
   Widget _buildRecentActivities() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -328,7 +333,7 @@ class _HomePageState extends State<HomePage> {
         Row(
           children: [
             Text(
-              "Recent Activities",
+              "Minerals status",
               style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
             Spacer(flex: 2,),
@@ -343,56 +348,51 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         SizedBox(height: 20.h),
-        _buildActivityItem("Swimming", 1000, "30 mins", 'assets/svg/swimming.svg'),
-        _buildActivityItem("Pizza", 1000, "40 mins",'assets/svg/pizza.svg'),
-        _buildActivityItem("Running", 1200, "20 mins",'assets/svg/running.svg'),
-        _buildActivityItem("Pizza", 1000, "60 mins",'assets/svg/pizza.svg'),
+        Card(
+          elevation: 0,
+          color: Color(0xffFAFAFA),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Major minerals",style: TextStyle(color: Color(0xff3285A1),fontWeight: FontWeight.w500,fontSize: 14.sp),),
+                SizedBox(height: 15.h,),
+                _buildMineralsstatusRow("Potassium (K)", "(12mg)"),
+                _buildMineralsstatusRow("Calcium (Ca)","(1mg)"),
+                _buildMineralsstatusRow("Magnesium (Mg)","(12mg)"),
+                _buildMineralsstatusRow("Phosphorus (P)","(12mg)"),
+                _buildMineralsstatusRow("Magnesium (Mg)","(12mg)"),
+                _buildMineralsstatusRow("Magnesium (Mg)","(12mg)"),
+                _buildMineralsstatusRow("Potassium (K)", "(12mg)"),
+                _buildMineralsstatusRow("Calcium (Ca)","(1mg)"),
+                _buildMineralsstatusRow("Magnesium (Mg)","(12mg)"),
+              ],
+            ),
+          ),
+        )
+
+
       ],
     );
   }
-
-  Widget _buildActivityItem(String activity, int kcal, String time,String svgPath) {
-    return Card(
-      color: Color(0xffFCFCFC),
-      elevation: 1,
-      child: SizedBox(
-        height: 60.h,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(width: 10,),
-            SvgPicture.asset(svgPath),
-            SizedBox(width: 10.w),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  activity,
-                  style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 5.h),
-                Row(
-                  children: [
-                    Text(
-                      "$kcal kcal",
-                      style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-                    ),
-                    SizedBox(width: 10.w),
-
-                  ],
-                ),
-              ],
-            ),
-            Spacer(),
+  /// **🔻 Single Row for Nutrients**
+  Widget _buildMineralsstatusRow(String name, String value) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 5.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(name, style: TextStyle(fontSize: 14.sp,fontWeight: FontWeight.w400,color: Color(0xff30322E))),
+          SizedBox(width: 15.w,),
+          Expanded(child: Divider(color: Color(0xffEFEFEF),)),
+          if (value.isNotEmpty)
             Text(
-              time,
-              style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                value,
+                style: TextStyle(fontSize: 12.sp,fontWeight: FontWeight.w400,color: Color(0xff30322E))
             ),
-            SizedBox(width: 15.w,)
-          ],
-        ),
+        ],
       ),
     );
   }

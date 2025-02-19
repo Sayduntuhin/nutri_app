@@ -1,10 +1,12 @@
 import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
 import 'package:nutri_app/views/forgetPassword/pages/forget_password.dart';
 import 'package:nutri_app/views/forgetPassword/pages/reset_password.dart';
 import 'package:nutri_app/views/forgetPassword/pages/varifications.dart';
 import 'package:nutri_app/views/home/pages/create_activity_page.dart';
 import 'package:nutri_app/views/home/pages/daily_activity_page.dart';
 import 'package:nutri_app/views/home/pages/home_page.dart';
+import 'package:nutri_app/views/home/pages/notification_page.dart';
 import 'package:nutri_app/views/login/pages/login_page.dart';
 import 'package:nutri_app/views/main/pages/main_page.dart';
 import 'package:nutri_app/views/meal/pages/add_meal_list_page.dart';
@@ -16,6 +18,7 @@ import 'package:nutri_app/views/settings/pages/privacy_policy_page.dart';
 import 'package:nutri_app/views/settings/pages/term_and_conditions_page.dart';
 import 'package:nutri_app/views/signup/pages/sign_up_page.dart';
 import '../views/foodScanner/pages/food_scanner_page.dart';
+import '../views/foodScanner/pages/scan_result_page.dart';
 import '../views/meal/pages/meal_details_page.dart';
 import '../views/meal/pages/meal_page.dart';
 import '../views/welcome/pages/welcome_page.dart';
@@ -25,89 +28,113 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/welcomepage',
-      builder: (context, state) => WelcomeScreen(),
+      pageBuilder: (context, state) => _buildPageWithTransition(const WelcomeScreen()),
     ),
     GoRoute(
       path: '/multisteppage',
-      builder: (context, state) => MultiStepPage(),
+      pageBuilder: (context, state) => _buildPageWithTransition(const MultiStepPage()),
     ),
     GoRoute(
       path: '/recommendation',
-      builder: (context, state) => RecommendationPage(),
+      pageBuilder: (context, state) => _buildPageWithTransition(const RecommendationPage()),
     ),
     GoRoute(
       path: '/login',
-      builder: (context, state) => LoginPage(),
+      pageBuilder: (context, state) => _buildPageWithTransition(const LoginPage()),
     ),
     GoRoute(
       path: '/signup',
-      builder: (context, state) => SignUpPage(),
+      pageBuilder: (context, state) => _buildPageWithTransition(const SignUpPage()),
     ),
     GoRoute(
       path: '/forgetpassword',
-      builder: (context, state) => ForgetPassword(),
+      pageBuilder: (context, state) => _buildPageWithTransition( ForgetPassword()),
     ),
     GoRoute(
       path: '/varifications',
-      builder: (context, state) => Varifications(),
+      pageBuilder: (context, state) => _buildPageWithTransition( Varifications()),
     ),
     GoRoute(
       path: '/resetpassword',
-      builder: (context, state) => ResetPassword(),
+      pageBuilder: (context, state) => _buildPageWithTransition( ResetPassword()),
     ),
     GoRoute(
       path: '/homepage',
-      builder: (context, state) => HomePage(),
+      pageBuilder: (context, state) => _buildPageWithTransition(const HomePage()),
     ),
     GoRoute(
       path: '/mainpage',
-      builder: (context, state) => MainPage(),
+      pageBuilder: (context, state) => _buildPageWithTransition(const MainPage()),
     ),
     GoRoute(
       path: '/foodscanner',
-      builder: (context, state) => ScannerPage(),
+      pageBuilder: (context, state) => _buildPageWithTransition(const ScannerPage()),
     ),
     GoRoute(
       path: '/personaldetails',
-      builder: (context, state) => PersonalDetailsPage(),
-    ),   GoRoute(
+      pageBuilder: (context, state) => _buildPageWithTransition(const PersonalDetailsPage()),
+    ),
+    GoRoute(
       path: '/termsandconditions',
-      builder: (context, state) => TermsAndConditionsPage(),
-    ), GoRoute(
+      pageBuilder: (context, state) => _buildPageWithTransition(const TermsAndConditionsPage()),
+    ),
+    GoRoute(
       path: '/privacypolicy',
-      builder: (context, state) => PrivacyPolicyPage(),
+      pageBuilder: (context, state) => _buildPageWithTransition(const PrivacyPolicyPage()),
     ),
     GoRoute(
       path: '/adjustgoal',
-      builder: (context, state) => AdjustGoalPage(),
+      pageBuilder: (context, state) => _buildPageWithTransition(const AdjustGoalPage()),
     ),
     GoRoute(
       path: '/',
-      builder: (context, state) => const MealPage(),
+      pageBuilder: (context, state) => _buildPageWithTransition(const MealPage()),
     ),
     GoRoute(
       path: '/meal-details',
-      builder: (context, state) {
-        final Map<String, dynamic> data = state.extra as Map<String, dynamic>; // ✅ Receive map
-        return MealDetailsPage(mealType: data["mealType"], kaloriesAmount: data["kcal"], svgPath: data['svgpath'],);
+      pageBuilder: (context, state) {
+        final Map<String, dynamic> data = state.extra as Map<String, dynamic>;
+        return _buildPageWithTransition(MealDetailsPage(mealType: data["mealType"], kaloriesAmount: data["kcal"], svgPath: data['svgpath']));
       },
     ),
     GoRoute(
       path: '/addmeallist',
-      builder: (context, state) {
+      pageBuilder: (context, state) {
         final Map<String, dynamic> data = state.extra as Map<String, dynamic>;
-        return AddMealListPage(mealType: data["mealType"]); // ✅ Pass mealType dynamically
+        return _buildPageWithTransition(AddMealListPage(mealType: data["mealType"]));
       },
     ),
     GoRoute(
       path: '/dailyactivitypage',
-      builder: (context, state) => const DailyActivityPage(),
+      pageBuilder: (context, state) => _buildPageWithTransition(const DailyActivityPage()),
     ),
-  GoRoute(
+    GoRoute(
       path: '/createactivitypage',
-      builder: (context, state) => const CreateActivityPage(),
+      pageBuilder: (context, state) => _buildPageWithTransition(const CreateActivityPage()),
     ),
-
-
+    GoRoute(
+      path: '/scanner',
+      pageBuilder: (context, state) => _buildPageWithTransition(const ScannerPage()),
+    ),
+    GoRoute(
+      path: '/scanResult',
+      pageBuilder: (context, state) {
+        final Map<String, dynamic> data = state.extra as Map<String, dynamic>;
+        return _buildPageWithTransition(ScanResultPage(imagePath: data["imagePath"]));
+      },
+    ),
+    GoRoute(
+      path: '/notification',
+      pageBuilder: (context, state) => _buildPageWithTransition(const NotificationPage()),
+    ),
   ],
 );
+
+Page<void> _buildPageWithTransition(Widget child) {
+  return CustomTransitionPage(
+    child: child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return FadeTransition(opacity: animation, child: child);
+    },
+  );
+}

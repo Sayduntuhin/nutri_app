@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../widget/calander_selection_widget.dart';
+
 class VitaminConsumptionChart extends StatelessWidget {
   const VitaminConsumptionChart({super.key});
 
@@ -10,33 +12,14 @@ class VitaminConsumptionChart extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10.w),
       child: SizedBox(
-        height: 420.h,
+        height: 400.h,
         child: Card(
           color: Colors.white,
           elevation: .1,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(15),
-                child: Row(
-                  children: [
-                    Text(
-                      "Fat soluble vitamins",
-                      style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      "18 July",
-                      style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w300),
-                    ),
-                    SizedBox(width: 10.w),
-                    InkWell(
-                        onTap: () {},
-                        child: SvgPicture.asset('assets/svg/calander.svg'))
-                  ],
-                ),
-              ),
+              buildSelectedClander( context,"Fat soluble vitamins","18 July"),
               SizedBox(height: .02.sh,),
               Row(
                 children: [
@@ -74,8 +57,6 @@ class VitaminConsumptionChart extends StatelessWidget {
                   SizedBox(width: 5,),
                   Text("(mcg)", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400)),
                   Spacer(flex: 1,),
-
-
                 ],
               ),
               Spacer(),
@@ -144,7 +125,7 @@ class VitaminBarChartPainter extends CustomPainter {
       textPainter.layout();
       // Position the label at the start of the bar (left side)
       canvas.save();
-      canvas.translate(5.w, yPos + (barHeight / 2)); // Position label at the start of the bar
+      canvas.translate(0.w, yPos + (barHeight / 2)); // Position label at the start of the bar
       canvas.rotate(-50.27); // Rotate the text 90 degrees counter-clockwise
       textPainter.paint(
         canvas,

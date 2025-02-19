@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart'; // Import camera package
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:go_router/go_router.dart';
 
 class ScannerPage extends StatefulWidget {
   const ScannerPage({super.key});
@@ -36,48 +34,18 @@ class _ScannerPageState extends State<ScannerPage> {
       }
     }
   }
-
-  // Future<void> _captureImage() async {
-  //   if (!_controller!.value.isInitialized) return;
-  //
-  //   final Directory extDir = await getApplicationDocumentsDirectory();
-  //   final String dirPath = '${extDir.path}/Pictures';
-  //   await Directory(dirPath).create(recursive: true);
-  //   final String filePath = path.join(dirPath, '${DateTime.now()}.jpg');
-  //
-  //   try {
-  //     await _controller!.takePicture().then((XFile file) {
-  //       setState(() {
-  //         imagePath = file.path;
-  //       });
-  //     });
-  //   } catch (e) {
-  //     print("Error capturing image: $e");
-  //   }
-  // }
-
   Future<void> _captureImage() async {
     if (!_controller!.value.isInitialized) return;
 
-    final Directory extDir = await getApplicationDocumentsDirectory();
-    final String dirPath = '${extDir.path}/Pictures';
-    await Directory(dirPath).create(recursive: true);
-    // final String filePath = path.join(dirPath, '${DateTime.now()}.jpg');
-
     try {
-      await _controller!.takePicture().then((XFile file) {
-     /*   Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ImagePreviewScreen(imagePath: file.path),
-          ),
-        );*/
-      });
+      final XFile file = await _controller!.takePicture();
+      if (mounted) {
+        context.push("/scanResult", extra: {"imagePath": file.path}); // ✅ Navigate with GoRouter
+      }
     } catch (e) {
       print("Error capturing image: $e");
     }
   }
-
   @override
   void dispose() {
     _controller?.dispose();

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import '../../../themes/colours.dart';
+import '../widgets/custom_appbar_secoundery.dart';
 
 class MealPage extends StatefulWidget {
   const MealPage({super.key});
@@ -12,64 +13,11 @@ class MealPage extends StatefulWidget {
 }
 
 class _MealPageState extends State<MealPage> {
-  int _notificationCount = 3;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Meals Items",
-          style: TextStyle(
-            fontSize: 20.sp,
-            color: textColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        centerTitle: true,
-        actions: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              IconButton(
-                icon: SvgPicture.asset(
-                  'assets/svg/notifications.svg',
-                  width: 30.w,
-                ),
-                onPressed: () {},
-              ),
-              if (_notificationCount > 0)
-                Positioned(
-                  right: 2,
-                  top: -5,
-                  child: Container(
-                    padding: EdgeInsets.all(6.w),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      shape: BoxShape.circle,
-                    ),
-                    constraints: BoxConstraints(
-                      minWidth: 15.w,
-                      minHeight: 15.w,
-                    ),
-                    child: Center(
-                      child: Text(
-                        '$_notificationCount',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ],
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
+      appBar: CustomAppbarSecoundery(title: "Meal Items",),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),

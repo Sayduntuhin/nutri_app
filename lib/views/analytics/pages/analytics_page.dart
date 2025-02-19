@@ -6,6 +6,7 @@ import 'calorie_line_chart.dart';
 import 'fat_soluble_vitamins_bae_chart.dart';
 import 'macrominerals_bar_chart.dart';
 import 'microminerals_bar_chart.dart';
+import 'nutrition_bar_chart.dart';
 import 'nutrition_bar_chat.dart';
 
 class AnalyticsPage extends StatefulWidget {
@@ -67,7 +68,7 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
               ),
             ),
             ChartWidget(),
-            BarChartSample6(),
+            NutritionChart(),
             MacromineralsBarChart(),
             MicromineralsBarChart(),
             VitaminConsumptionChart(),

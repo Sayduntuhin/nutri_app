@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../widget/calander_selection_widget.dart';
+
 class MicromineralsBarChart extends StatelessWidget {
   const MicromineralsBarChart({super.key});
 
@@ -17,26 +19,7 @@ class MicromineralsBarChart extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(15),
-                child: Row(
-                  children: [
-                    Text(
-                      "Microminerals ",
-                      style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
-                    ),
-                    Spacer(),
-                    Text(
-                      "18 July",
-                      style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w300),
-                    ),
-                    SizedBox(width: 10.w),
-                    InkWell(
-                        onTap: () {},
-                        child: SvgPicture.asset('assets/svg/calander.svg'))
-                  ],
-                ),
-              ),
+              buildSelectedClander( context,"Microminerals","18 July"),
               Text(
                 "Daily intake (mg)",
                 style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w300,color: Color(0xff6D6D6D)),

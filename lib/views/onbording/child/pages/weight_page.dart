@@ -108,7 +108,8 @@ class _WeightPageState extends State<WeightPage> {
                         knobStyle: KnobStyle(color: Colors.black),
                         needleEndWidth: 8,
                         needleStartWidth: 0,
-                        animationDuration: 5000,
+                        animationDuration: 500,
+                        animationType: AnimationType.easeInCirc,
                       ),
                     ],
                     ranges: [
