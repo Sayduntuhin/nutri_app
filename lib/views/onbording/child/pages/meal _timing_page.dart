@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutri_app/views/widgets/custom_button.dart';
+import '../../../widgets/secoundery_costom_appbar.dart';
 import '../widgets/meal_time_dialog.dart';
 
 class MealTimingPage extends StatefulWidget {
-  const MealTimingPage({super.key});
+  final bool isOnboarding;
+
+  const MealTimingPage({super.key, required this.isOnboarding});
 
   @override
   State<MealTimingPage> createState() => _MealTimingPage();
@@ -63,6 +66,9 @@ class _MealTimingPage extends State<MealTimingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: widget.isOnboarding
+          ? null // If it's onboarding, no appbar is shown
+          : SecounderyCostomAppbar(onBackPressed: Navigator.of(context).pop),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(left: 35.w, right: 20.w, top: 20.h),
@@ -104,7 +110,7 @@ class _MealTimingPage extends State<MealTimingPage> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 50.h,
+                        height: .06.sh,
                         child: ListTile(
                           title: Padding(
                             padding: const EdgeInsets.only(bottom: 8),
@@ -124,7 +130,7 @@ class _MealTimingPage extends State<MealTimingPage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 10),  
+                        padding: const EdgeInsets.only(top: 20),
                         child: Divider(indent: 20, endIndent: 20),
                       ),
                     ],
@@ -140,7 +146,6 @@ class _MealTimingPage extends State<MealTimingPage> {
                   Text("Add Meal",style: TextStyle(color: Color(0xff2E3038),fontSize: 16.sp,fontWeight: FontWeight.w400),)
                 ],
               ),
-              
             ],
           ),
         ),

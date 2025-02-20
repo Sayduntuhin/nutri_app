@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nutri_app/views/onbording/child/pages/ask_page.dart';
 import 'package:nutri_app/views/onbording/child/pages/desire_weight.dart';
@@ -23,7 +22,7 @@ class MultiStepPage extends StatefulWidget {
   const MultiStepPage({super.key});
 
   @override
-  _MultiStepPageState createState() => _MultiStepPageState();
+  State<MultiStepPage> createState() => _MultiStepPageState();
 }
 
 class _MultiStepPageState extends State<MultiStepPage> {
@@ -35,18 +34,18 @@ class _MultiStepPageState extends State<MultiStepPage> {
   bool isActivityLevelSelected = false; // Track if activity level is selected
 
   final List<Widget> pages = [
-    GenderSelectionPage(),
+    GenderSelectionPage(isOnboarding: true,),
     PhysicalActivityLevelPage(),
     CountrySelectionPage(),
     AskPage(),
-    HeightPage(),
-    WeightPage(),
-    DatePickerPage(),
+    HeightPage(isOnboarding: true,),
+    WeightPage(isOnboarding: true,),
+    DatePickerPage(isOnboarding: true,),
     ChooseGoalPage(),
     AppropriateTimePage(),
-    DesireWeightPage(),
-    MealTimingPage(),
-    TargetPage(),
+    DesireWeightPage(isOnboarding: true,),
+    MealTimingPage(isOnboarding: true,),
+    TargetPage(isOnboarding: true,),
     DietTypePage(),
     AchievingYourGoalPage(),
     ThanksPage()

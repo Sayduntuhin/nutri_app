@@ -34,116 +34,115 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50.h),
+        preferredSize: Size.fromHeight(80.h),
         child: _buildAppBar(context),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 20.w,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 10.h,),
-              buildCalendar(),
-              SizedBox(height: 10.h),
-              Container(
-                height: 125.h,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.r),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.shade200,
-                        blurRadius: 2.0,
-                        spreadRadius: 2.0,
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 20.w,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 10.h,),
+            buildCalendar(),
+            SizedBox(height: 10.h),
+            Container(
+              height: 125.h,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.r),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade200,
+                      blurRadius: 2.0,
+                      spreadRadius: 2.0,
+                    ),
+                  ]),
+              child: Row(
+                children: [
+                  SizedBox(width: 30.w),
+                  RichText(
+                    textAlign: TextAlign.start,
+                    text: TextSpan(
+                      text: '2300 ',
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 36.sp,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ]),
-                child: Row(
-                  children: [
-                    SizedBox(width: 30.w),
-                    RichText(
-                      textAlign: TextAlign.start,
-                      text: TextSpan(
-                        text: '2300 ',
-                        style: TextStyle(
-                          color: textColor,
-                          fontSize: 36.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        children: const <TextSpan>[
-                          TextSpan(
-                            text: '\nCalories left',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 14),
-                          ),
-                          TextSpan(
-                            text: '\n(Intake)',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 14),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Spacer(
-                      flex: 2,
-                    ),
-                    _buildBurnedCaloriesCircle(
-                        100.w, 100.h, "assets/svg/cal.svg", 8.w,50.w),
-                    Spacer(
-                      flex: 1,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Burned',
+                      children: const <TextSpan>[
+                        TextSpan(
+                          text: '\nCalories left',
                           style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14.sp,
-                              color: Color(0xff7A7B7C)),
+                              fontWeight: FontWeight.w500, fontSize: 14),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: SvgPicture.asset(
-                            'assets/svg/plus_icons.svg',
-                            width: 20.w,
-                          ),
-                        ),
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            text: '1100 ',
-                            style: TextStyle(
-                              color: Color(0xff515151),
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            children: const <TextSpan>[
-                              TextSpan(
-                                text: '\nkcal',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xffACADB0),
-                                    fontSize: 12),
-                              ),
-                            ],
-                          ),
+                        TextSpan(
+                          text: '\n(Intake)',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 14),
                         ),
                       ],
                     ),
-                    SizedBox(width: 30.w),
-                  ],
-                ),
+                  ),
+                  Spacer(
+                    flex: 2,
+                  ),
+                  _buildBurnedCaloriesCircle(
+                      100.w, 100.h, "assets/svg/cal.svg", 8.w,50.w),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Burned',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14.sp,
+                            color: Color(0xff7A7B7C)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: SvgPicture.asset(
+                          'assets/svg/plus_icons.svg',
+                          width: 20.w,
+                        ),
+                      ),
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          text: '1100 ',
+                          style: TextStyle(
+                            color: Color(0xff515151),
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          children: const <TextSpan>[
+                            TextSpan(
+                              text: '\nkcal',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  color: Color(0xffACADB0),
+                                  fontSize: 12),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: 30.w),
+                ],
               ),
-              SizedBox(height: 10.h),
-              _buildInfoCards(),
-              SizedBox(height: 30.h),
-              _buildRecentActivities(),
-              SizedBox(height: 100.h,)
-            ],
-          ),
+            ),
+            SizedBox(height: 10.h),
+            _buildInfoCards(),
+            SizedBox(height: 20.h),
+            _buildRecentActivitieswhenempty(),
+            _buildRecentActivities(),
+            SizedBox(height: 100.h,)
+          ],
         ),
       ),
     );
@@ -151,59 +150,68 @@ class _HomePageState extends State<HomePage> {
 
   ///////////////////////AppBar Widget////////////////////////
   Widget _buildAppBar(BuildContext context,) {
-    return AppBar(
-      leading: Image.asset(
-        'assets/images/logo.png',
-      ),
-      title: SvgPicture.asset(
-        'assets/svg/calz.svg',
-        width: 60.w,
-      ),
-      centerTitle: true,
-      actions: [
-        Stack(
-          clipBehavior: Clip.none,
-          children: [
-            IconButton(
-              icon: SvgPicture.asset(
-                'assets/svg/notifications.svg',
-                width: 30.w,
-              ),
-              onPressed: () {
-                context.push('/notification');
-              },
-            ),
-            if (_notificationCount > 0)
-              Positioned(
-                right: 2,
-                top: -5,
-                child: Container(
-                  padding: EdgeInsets.all(6.w),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Image.asset(
+            'assets/images/logo.png',
+          ),
+        ),
+        title: SvgPicture.asset(
+          'assets/svg/calz.svg',
+          width: 60.w,
+        ),
+        centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                IconButton(
+                  icon: SvgPicture.asset(
+                    'assets/svg/notifications.svg',
+                    width: 30.w,
                   ),
-                  constraints: BoxConstraints(
-                    minWidth: 15.w,
-                    minHeight: 15.w,
-                  ),
-                  child: Center(
-                    child: Text(
-                      '$_notificationCount',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                  onPressed: () {
+                    context.push('/notification');
+                  },
+                ),
+                if (_notificationCount > 0)
+                  Positioned(
+                    right: 2,
+                    top: -5,
+                    child: Container(
+                      padding: EdgeInsets.all(6.w),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
+                      constraints: BoxConstraints(
+                        minWidth: 15.w,
+                        minHeight: 15.w,
+                      ),
+                      child: Center(
+                        child: Text(
+                          '$_notificationCount',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-          ],
-        ),
-      ],
-      backgroundColor: Colors.transparent,
-      elevation: 0,
+              ],
+            ),
+          ),
+        ],
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
     );
   }
   //////////////////////Calendar Widget////////////////////////
@@ -327,54 +335,91 @@ class _HomePageState extends State<HomePage> {
     );
   }
   Widget _buildRecentActivities() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Minerals status",
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
-            ),
-            Spacer(flex: 2,),
-            Text(
-              "Activities",
-              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400,color: Color(0xff9D9D9D)),
-            ),
-            SizedBox(width: 10,),
-            GestureDetector(
-                onTap: (){context.push('/dailyactivitypage');},
-                child: SvgPicture.asset('assets/svg/plus_icons.svg',width: 24,))
-          ],
-        ),
-        SizedBox(height: 20.h),
-        Card(
-          elevation: 0,
-          color: Color(0xffFAFAFA),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Text("Major minerals",style: TextStyle(color: Color(0xff3285A1),fontWeight: FontWeight.w500,fontSize: 14.sp),),
-                SizedBox(height: 15.h,),
-                _buildMineralsstatusRow("Potassium (K)", "(12mg)"),
-                _buildMineralsstatusRow("Calcium (Ca)","(1mg)"),
-                _buildMineralsstatusRow("Magnesium (Mg)","(12mg)"),
-                _buildMineralsstatusRow("Phosphorus (P)","(12mg)"),
-                _buildMineralsstatusRow("Magnesium (Mg)","(12mg)"),
-                _buildMineralsstatusRow("Magnesium (Mg)","(12mg)"),
-                _buildMineralsstatusRow("Potassium (K)", "(12mg)"),
-                _buildMineralsstatusRow("Calcium (Ca)","(1mg)"),
-                _buildMineralsstatusRow("Magnesium (Mg)","(12mg)"),
+                Text(
+                  "Minerals status",
+                  style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                ),
+                Spacer(flex: 2,),
+                Text(
+                  "Activities",
+                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400,color: Color(0xff9D9D9D)),
+                ),
+                SizedBox(width: 10,),
+                GestureDetector(
+                    onTap: (){context.push('/dailyactivitypage');},
+                    child: SvgPicture.asset('assets/svg/plus_icons.svg',width: 24,))
               ],
             ),
-          ),
-        )
+            SizedBox(height: 20.h),
+            Card(
+              elevation: 0,
+              color: Color(0xffFAFAFA),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Major minerals",style: TextStyle(color: Color(0xff3285A1),fontWeight: FontWeight.w500,fontSize: 14.sp),),
+                    SizedBox(height: 15.h,),
+                    _buildMineralsstatusRow("Potassium (K)", "(12mg)"),
+                    _buildMineralsstatusRow("Calcium (Ca)","(1mg)"),
+                    _buildMineralsstatusRow("Magnesium (Mg)","(12mg)"),
+                    _buildMineralsstatusRow("Phosphorus (P)","(12mg)"),
+                    _buildMineralsstatusRow("Magnesium (Mg)","(12mg)"),
+                    _buildMineralsstatusRow("Magnesium (Mg)","(12mg)"),
+                    _buildMineralsstatusRow("Potassium (K)", "(12mg)"),
+                    _buildMineralsstatusRow("Calcium (Ca)","(1mg)"),
+                    _buildMineralsstatusRow("Magnesium (Mg)","(12mg)"),
+                  ],
+                ),
+              ),
+            )
+        
+        
+          ],
+        ),
+      ),
+    );
+  }
+  Widget _buildRecentActivitieswhenempty() {
+    return Expanded(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Recent activities",
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20.h),
+            Card(
+              elevation: 0,
+              color: Color(0xffFAFAFA),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(child: Text("You haven't Upload any food",style: TextStyle(color: textColor,fontWeight: FontWeight.bold,fontSize: 14.sp),)),
+                    Text("Start tracking today's meals by taking a quick picture",style: TextStyle(color: textColor,fontWeight: FontWeight.w400,fontSize: 14.sp),),
+                  ],
+                ),
+              ),
+            )
 
 
-      ],
+          ],
+        ),
+      ),
     );
   }
   /// **🔻 Single Row for Nutrients**

@@ -2,24 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import '../../../themes/colours.dart';
 import '../widgets/custom_appbar_secoundery.dart';
 
-class MealPage extends StatefulWidget {
-  final bool isAddMealPage; // Flag to differentiate between Add Meal Page and Meal List Page
-
-  const MealPage({super.key, required this.isAddMealPage});
+class AddToMealPage extends StatefulWidget {
+  const AddToMealPage({super.key});
 
   @override
-  State<MealPage> createState() => _MealPageState();
+  State<AddToMealPage> createState() => _AddToMealPageState();
 }
 
-class _MealPageState extends State<MealPage> {
+class _AddToMealPageState extends State<AddToMealPage> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbarSecoundery(title: "Meal Items"),
+      appBar: CustomAppbarSecoundery(title: "Meal Items",),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -46,29 +43,23 @@ class _MealPageState extends State<MealPage> {
         ),
         SizedBox(height: 20.h),
         _buildMealItem(
-            "Breakfast", 1000, widget.isAddMealPage ? "Add here" : "View all", 'assets/svg/breakfast.svg'),
-        _buildMealItem("Lunch", 1000, widget.isAddMealPage ? "Add here" : "View all", 'assets/svg/lunch.svg'),
+          "Breakfast", 1000, "Add here", 'assets/svg/breakfast.svg',),
+        _buildMealItem("Lunch", 1000, "Add here", 'assets/svg/lunch.svg'),
         _buildMealItem(
-            "Dinner", 1200, widget.isAddMealPage ? "Add here" : "View all", 'assets/svg/lunch.svg'),
-        _buildMealItem("Snacks", 1000, widget.isAddMealPage ? "Add here" : "View all", 'assets/svg/dinner.svg'),
+            "Dinner", 1200, "Add here", 'assets/svg/lunch.svg'),
+        _buildMealItem("Snacks", 1000, "Add here", 'assets/svg/dinner.svg'),
       ],
     );
   }
 
-  Widget _buildMealItem(String mealType, int kcal, String viewText, String svgPath) {
+  Widget _buildMealItem(String mealType, int kcal, String view, String svgPath) {
     return InkWell(
       onTap: () {
-        // Navigate to meal details if it's not the add meal page
-        if (!widget.isAddMealPage) {
-          context.push("/meal-details", extra: {
-            "mealType": mealType,
-            "kcal": kcal,
-            "svgpath": svgPath // Pass mealType, kcal and svgPath
-          });
-        } else {
-          // Handle adding meal functionality here
-          print("Add meal clicked");
-        }
+        context.push("/meal-details", extra: {
+          "mealType": mealType, // ✅ Pass mealType
+          "kcal": kcal,
+          "svgpath" : svgPath// ✅ Pass kcal amount
+        });
       },
       child: Card(
         color: Color(0xffFCFCFC),
@@ -95,7 +86,7 @@ class _MealPageState extends State<MealPage> {
               ),
               Spacer(),
               Text(
-                viewText,  // Display "Add here" or "View all"
+                view,
                 style: TextStyle(fontSize: 12.sp, color: Colors.grey),
               ),
               SizedBox(width: 15.w),

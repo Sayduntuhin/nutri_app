@@ -3,8 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nutri_app/themes/text_size.dart';
 
+import '../../../widgets/custom_button.dart';
+import '../../../widgets/secoundery_costom_appbar.dart';
+
 class TargetPage extends StatefulWidget {
-  const TargetPage({super.key});
+  final bool isOnboarding;
+
+  const TargetPage({super.key, required this.isOnboarding});
 
   @override
   State<TargetPage> createState() => _TargetPage();
@@ -31,6 +36,9 @@ class _TargetPage extends State<TargetPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: widget.isOnboarding
+          ? null // If it's onboarding, no appbar is shown
+          : SecounderyCostomAppbar(onBackPressed: Navigator.of(context).pop),
       body: Padding(
         padding: EdgeInsets.only(left: 35.w, right: 20.w, top: 20.h),
         child: Column(
@@ -123,6 +131,15 @@ class _TargetPage extends State<TargetPage> {
               style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
             ),
             Spacer(flex: 2,),
+            if (!widget.isOnboarding)
+              CustomButton(
+                width: 340.w,
+                text: "Update Target ",
+                onPressed: () {},
+              ),
+            Spacer(
+              flex: 1,
+            ),
           ],
         ),
       ),

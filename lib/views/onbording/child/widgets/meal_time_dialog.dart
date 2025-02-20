@@ -92,8 +92,8 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
                 Text("${widget.mealName}:", style: TextStyle(fontSize: 16.sp)),
                 Spacer(flex: 2),
                 SizedBox(
-                  width: 40.w,
-                  height: 30.h,
+                  width: 0.1.sw,
+                  height: 0.04.sh,
                   child: TextField(
                     controller: hourController,
                     decoration: InputDecoration(
@@ -124,8 +124,8 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
                 Image.asset("assets/images/colon.png", height: 20.w),
                 SizedBox(width: 10),
                 SizedBox(
-                  width: 40.w,
-                  height: 30.h,
+                  width: 0.1.sw,
+                  height: 0.04.sh,
                   child: TextField(
                     controller: minuteController,
                     decoration: InputDecoration(

@@ -3,9 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:scroll_date_picker/scroll_date_picker.dart';
 
 import '../../../../themes/text_size.dart';
+import '../../../widgets/custom_button.dart';
+import '../../../widgets/secoundery_costom_appbar.dart';
 
 class DatePickerPage extends StatefulWidget {
-  const DatePickerPage({super.key});
+  final bool isOnboarding;
+
+  const DatePickerPage({super.key,required this.isOnboarding});
 
   @override
   State<DatePickerPage> createState() => _DatePickerPageState();
@@ -24,7 +28,10 @@ class _DatePickerPageState extends State<DatePickerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+        appBar: widget.isOnboarding
+            ? null // If it's onboarding, no appbar is shown
+            : SecounderyCostomAppbar(onBackPressed: Navigator.of(context).pop),
+        body: Padding(
         padding: const EdgeInsets.all(20.0),
         child:Column(
           children: [
@@ -56,6 +63,15 @@ class _DatePickerPageState extends State<DatePickerPage> {
               ),
             ),
             Spacer(flex: 2,),
+            if (!widget.isOnboarding)
+              CustomButton(
+                width: 340.w,
+                text: "Update Date of Birth",
+                onPressed: () {},
+              ),
+            Spacer(
+              flex: 1,
+            ),
           ],
         ),
     )

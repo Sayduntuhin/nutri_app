@@ -4,9 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nutri_app/themes/colours.dart';
-import 'package:path/path.dart';
+
 import '../../home/widgets/home_page_secendery_Appbar.dart';
-import 'package:popover/popover.dart';
 
 class ScanResultPage extends StatelessWidget {
   final String imagePath;
@@ -120,6 +119,10 @@ class ScanResultPage extends StatelessWidget {
               itemBuilder: (context) => [
                 PopupMenuItem(
                   value: 1,
+                  onTap: (){
+                    context.push("/addtolog");
+                    /*Navigator.push(context, MaterialPageRoute(builder: (context) => AddMealListPage()));*/
+                  },
                   child: Row(
                     children: [
                       SvgPicture.asset('assets/svg/checkmark.svg',width: 13,),
@@ -129,6 +132,10 @@ class ScanResultPage extends StatelessWidget {
                   ),
                 ),
                 PopupMenuItem(
+                  onTap: (){
+                    context.push("/addmeal");
+                    /*Navigator.push(context, MaterialPageRoute(builder: (context) => AddMealListPage()));*/
+                  },
                   value: 2,
                   child: Row(
                     children: [

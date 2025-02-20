@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nutri_app/themes/text_size.dart';
 
+import '../../../widgets/custom_button.dart';
+import '../../../widgets/secoundery_costom_appbar.dart';
+
 class GenderSelectionPage extends StatefulWidget {
-  const GenderSelectionPage({super.key});
+  final bool isOnboarding;
+
+  const GenderSelectionPage({super.key, required this.isOnboarding});
 
   @override
   State<GenderSelectionPage> createState() => _GenderSelectionPageState();
 }
 
 class _GenderSelectionPageState extends State<GenderSelectionPage> {
-
   String? selectedGender;
+
 
   void onGenderSelect(String gender) {
     setState(() {
@@ -19,11 +24,12 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: widget.isOnboarding
+          ? null // If it's onboarding, no appbar is shown
+          : SecounderyCostomAppbar(onBackPressed: Navigator.of(context).pop),
       body: Padding(
         padding: EdgeInsets.only(left: 35.w, right: 20.w, top: 20.h),
         child: Column(
@@ -106,6 +112,15 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
             ),
             Spacer(
               flex: 3,
+            ),
+            if (!widget.isOnboarding)
+              CustomButton(
+                width: 340.w,
+                text: "Update Gender",
+                onPressed: () {},
+              ),
+            Spacer(
+              flex: 1,
             ),
           ],
         ),

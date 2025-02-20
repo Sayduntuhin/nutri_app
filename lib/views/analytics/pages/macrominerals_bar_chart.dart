@@ -19,7 +19,7 @@ class MacromineralsBarChart extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                buildSelectedClander( context,"Microminerals","18 July"),
+                buildSelectedClander( context,"Macrominerals","18 July"),
                 Text(
                   "Daily intake (mg)",
                   style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w300,color: Color(0xff6D6D6D)),

@@ -7,16 +7,16 @@ import 'package:get/get.dart';
 import 'package:nutri_app/themes/colours.dart';
 
 class AddMealListPage extends StatefulWidget {
-  final String mealType; // Receives mealType from navigation
+  final String? mealType; // Receives mealType from navigation
 
-  const AddMealListPage({super.key, required this.mealType});
+  const AddMealListPage({super.key, this.mealType});
 
   @override
   _AddMealListPageState createState() => _AddMealListPageState();
 }
 
 class _AddMealListPageState extends State<AddMealListPage> {
-  String selectedMeal = "";
+  String? selectedMeal = "";
   String selectedFilter = "Quick log"; // Default selected filter
 
   @override

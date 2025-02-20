@@ -36,8 +36,10 @@ class SettingsPage extends StatelessWidget {
             _buildListTile("Adjust nutrients goals", () {
               context.push('/adjustgoal');
             }),
-            _buildListTile("Your meal time"),
-            _buildListTile("Review"),
+            _buildListTile("Your meal time",() {
+              context.push('/mealtimepage');
+            }),
+            _buildListTile("Log Out"),
           ],
         ),
       ),

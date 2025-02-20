@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
+import '../../../widgets/custom_button.dart';
+import '../../../widgets/secoundery_costom_appbar.dart';
 import '../widgets/unitselectionButton_widgets.dart';
 // Assuming you have this widget
 
 class WeightPage extends StatefulWidget {
-  const WeightPage({super.key});
+  final bool isOnboarding;
+  const WeightPage({super.key, required this.isOnboarding});
 
   @override
   State<WeightPage> createState() => _WeightPageState();
@@ -40,6 +43,9 @@ class _WeightPageState extends State<WeightPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      appBar: widget.isOnboarding
+          ? null // If it's onboarding, no appbar is shown
+          : SecounderyCostomAppbar(onBackPressed: Navigator.of(context).pop),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(left: 35.w, right: 20.w, top: 20.h),
@@ -206,6 +212,20 @@ class _WeightPageState extends State<WeightPage> {
                   ),
                 ),
               ),
+
+              if (!widget.isOnboarding)
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 0.2.sh,
+                    ),
+                    CustomButton(
+                      width: 340.w,
+                      text: "Update Weight",
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
               SizedBox(
                 height: 0.1.sh,
               ),

@@ -19,7 +19,7 @@ class SecounderyCostomAppbar extends StatelessWidget
         AppBar(
           backgroundColor: Color(0xffF3F6FF),
           elevation: 0,
-          leadingWidth: 90.w,
+          leadingWidth: 120.w,
           leading: Row(
             children: [
               IconButton(

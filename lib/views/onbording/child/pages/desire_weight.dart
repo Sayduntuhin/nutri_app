@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
+import '../../../widgets/custom_button.dart';
+import '../../../widgets/secoundery_costom_appbar.dart';
 import '../widgets/unitselectionButton_widgets.dart';
 // Assuming you have this widget
 
 class DesireWeightPage extends StatefulWidget {
-  const DesireWeightPage({super.key});
+  final bool isOnboarding;
+  const DesireWeightPage({super.key, required this.isOnboarding});
 
   @override
   State<DesireWeightPage> createState() => _DesireWeightPageState();
@@ -40,6 +43,9 @@ class _DesireWeightPageState extends State<DesireWeightPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      appBar: widget.isOnboarding
+          ? null // If it's onboarding, no appbar is shown
+          : SecounderyCostomAppbar(onBackPressed: Navigator.of(context).pop),
       body: Padding(
         padding: EdgeInsets.only(left: 35.w, right: 20.w, top: 20.h),
         child: Column(
@@ -56,7 +62,6 @@ class _DesireWeightPageState extends State<DesireWeightPage> {
                 textAlign: TextAlign.center,
               ),
             ),
-
             SizedBox(height: 30.h),
             Container(
               height: 45.h,
@@ -83,12 +88,13 @@ class _DesireWeightPageState extends State<DesireWeightPage> {
                 ],
               ),
             ),
-            Spacer(),
+            Spacer(
+              flex: 1,
+            ),
             SfLinearGauge(
               minimum: 0,
               maximum: 200,
               maximumLabels: 2,
-
               markerPointers: [
                 LinearShapePointer(
                   value: weight,
@@ -98,9 +104,10 @@ class _DesireWeightPageState extends State<DesireWeightPage> {
               ],
               barPointers: [
                 LinearBarPointer(
-                  thickness: 15,
+                    thickness: 15,
                     edgeStyle: LinearEdgeStyle.bothCurve,
-                    value: weight, color: Colors.black),
+                    value: weight,
+                    color: Colors.black),
               ],
               axisTrackStyle: LinearAxisTrackStyle(
                 thickness: 15,
@@ -120,15 +127,14 @@ class _DesireWeightPageState extends State<DesireWeightPage> {
                       color: Colors.grey.shade300, // Lighter shadow
                     ),
                   ],
-                  borderRadius:
-                  BorderRadius.circular(10.r), // Rounded corners
+                  borderRadius: BorderRadius.circular(10.r), // Rounded corners
                   color: Colors.white,
                 ),
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(
-                          left: 10.w), // Left padding for label
+                      padding:
+                          EdgeInsets.only(left: 10.w), // Left padding for label
                       child: Text(
                         "Weight: ",
                         style: TextStyle(
@@ -147,15 +153,16 @@ class _DesireWeightPageState extends State<DesireWeightPage> {
                           hintText: "Enter here",
                           hintStyle: TextStyle(
                               color: Color(0xffC8C8C8),
-                              fontSize: 14.sp), // Lighter text color for placeholder
+                              fontSize:
+                                  14.sp), // Lighter text color for placeholder
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(
                                 10.r), // Rounded corners for text field
                             borderSide:
-                            BorderSide.none, // Remove default border
+                                BorderSide.none, // Remove default border
                           ),
                           contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10.w),
+                              EdgeInsets.symmetric(horizontal: 10.w),
                         ),
                         keyboardType: TextInputType.number,
                         onChanged: (value) {
@@ -170,9 +177,14 @@ class _DesireWeightPageState extends State<DesireWeightPage> {
                 ),
               ),
             ),
-            Spacer(flex: 2,),
-
-
+            Spacer(),
+            if (!widget.isOnboarding)
+              CustomButton(
+                width: 340.w,
+                text: "Update Gender",
+                onPressed: () {},
+              ),
+            Spacer(),
           ],
         ),
       ),

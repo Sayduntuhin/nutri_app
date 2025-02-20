@@ -53,7 +53,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               Padding(
                 padding: const EdgeInsets.only(left: 20,right: 20),
                 child: CustomTextField(
-                    controller: passwordController,
+                    controller: confirmPasswordController,
                     hintText: "Password",
                     prefixIcon: Icons.lock,
                   isPassword: true,
@@ -87,9 +87,24 @@ class _ResetPasswordState extends State<ResetPassword> {
           ),
 
           SizedBox(height: 0.05.sh),
-          CustomButton(width: 350.w, text: "Save Password", onPressed: () {
-            context.push("/varifications");
-          }),
+          CustomButton(
+            width: 350.w,
+            text: "Save Password",
+            onPressed: () {
+              if (passwordController.text != confirmPasswordController.text) {
+                // Show snackbar if passwords do not match
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("Passwords do not match."),
+                    backgroundColor: Colors.red,
+                  ),
+                );
+              } else {
+                // Navigate to verification screen if passwords match
+                context.go("/login");
+              }
+            },
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

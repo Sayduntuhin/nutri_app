@@ -1,7 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nutri_app/views/widgets/secoundery_costom_appbar.dart';
+import 'package:path/path.dart';
 
 class PersonalDetailsPage extends StatelessWidget {
   const PersonalDetailsPage({super.key});
@@ -9,7 +13,9 @@ class PersonalDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SecounderyCostomAppbar( onBackPressed: Navigator.of(context).pop,),
+      appBar: SecounderyCostomAppbar(
+        onBackPressed: Navigator.of(context).pop,
+      ),
       body: Padding(
         padding: EdgeInsets.all(20.w),
         child: Column(
@@ -17,15 +23,51 @@ class PersonalDetailsPage extends StatelessWidget {
           children: [
             _buildSectionTitle("Personal Details"),
             SizedBox(height: 20.h),
-            _buildWeightGoalSection(),
+            _buildWeightGoalSection(context),
             SizedBox(height: 20.h),
-            _buildListTile("Age"),
-            _buildListTile("Height"),
-            _buildListTile("Current weight"),
-            _buildListTile("Gender"),
-            _buildListTile("Date of birth"),
-            _buildListTile("Change your motion to target"),
-            _buildListTile("Change password"),
+            _buildListTileForAge("Age", 25),
+            _buildListTile(
+              "Height",
+              context,
+              () {
+                context.push('/heightpage');
+              },
+            ),
+            _buildListTile(
+              "Current weight",
+              context,
+              () {
+                context.push('/weightpage');
+              },
+            ),
+            _buildListTile(
+              "Gender",
+              context,
+              () {
+                context.push('/genderpage');
+              },
+            ),
+            _buildListTile(
+              "Date of birth",
+              context,
+              () {
+                context.push('/dateofbirthpage');
+              },
+            ),
+            _buildListTile(
+              "Change your motion to target",
+              context,
+              () {
+                context.push('/targetpage');
+              },
+            ),
+            _buildListTile(
+              "Change password",
+              context,
+              () {
+                context.push('/changepassword');
+              },
+            ),
           ],
         ),
       ),
@@ -33,7 +75,7 @@ class PersonalDetailsPage extends StatelessWidget {
   }
 
   // Weight Gain Goal Section
-  Widget _buildWeightGoalSection() {
+  Widget _buildWeightGoalSection(BuildContext context) {
     return Card(
       color: Colors.white,
       elevation: 1,
@@ -43,29 +85,42 @@ class PersonalDetailsPage extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "Weight gain goal",
-                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
+                    style:
+                        TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
                   ),
                   SizedBox(height: 5.h),
                   Text(
                     "5 kg",
-                    style: TextStyle(fontSize: 18.sp, color: Colors.black, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 18.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
               InkWell(
-                onTap: (){},
+                onTap: () {
+                  context.push('/weightgoalpage');
+                },
                 child: Row(
                   children: [
-                   SvgPicture.asset('assets/svg/edit.svg'),
-                    SizedBox(width: 5.w,),
-                    Text("Edit",style: TextStyle(color: Color(0xff111C06),fontWeight: FontWeight.w500,fontSize: 12 .sp),)
+                    SvgPicture.asset('assets/svg/edit.svg'),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Text(
+                      "Edit",
+                      style: TextStyle(
+                          color: Color(0xff111C06),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12.sp),
+                    )
                   ],
                 ),
               ),
@@ -75,6 +130,7 @@ class PersonalDetailsPage extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildSectionTitle(String title) {
     return Text(
       title,
@@ -83,17 +139,28 @@ class PersonalDetailsPage extends StatelessWidget {
   }
 }
 
-  // ListTile widget for each detail item
-  Widget _buildListTile(String title) {
-    return ListTile(
-      title: Text(
-        title,
-        style: TextStyle(fontSize: 16.sp),
-      ),
-      trailing: Icon(Icons.arrow_forward_ios, size: 18.sp),
-      onTap: () {
-        // Handle tap, e.g., navigate to another page or show a dialog
-      },
-    );
-  }
+/// Build list tile with custom onTap function
+Widget _buildListTile(String title, BuildContext context, VoidCallback onTap) {
+  return ListTile(
+    title: Text(
+      title,
+      style: TextStyle(fontSize: 16.sp),
+    ),
+    trailing: Icon(Icons.arrow_forward_ios, size: 18.sp),
+    onTap: onTap, // Use the passed custom onTap function
+  );
+}
 
+// ListTile widget for each detail item
+Widget _buildListTileForAge(String title, int age) {
+  return ListTile(
+    title: Text(
+      title,
+      style: TextStyle(fontSize: 16.sp),
+    ),
+    trailing: Text(
+      "${age}y",
+      style: TextStyle(fontSize: 16.sp),
+    ),
+  );
+}
