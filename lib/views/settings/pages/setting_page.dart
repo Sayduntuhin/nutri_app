@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nutri_app/views/widgets/custom_button.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
