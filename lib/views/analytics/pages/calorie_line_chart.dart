@@ -10,7 +10,7 @@ class ChartWidget extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10.w),
       child: SizedBox(
-        height: 400.h,
+        height: 0.45.sh,
         child: Card(
           color: Colors.white,
           elevation: .1,

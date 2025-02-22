@@ -19,7 +19,7 @@ class SecounderyCostomAppbar extends StatelessWidget
         AppBar(
           backgroundColor: Color(0xffF3F6FF),
           elevation: 0,
-          leadingWidth: 120.w,
+          leadingWidth: 2.sw,
           leading: Row(
             children: [
               IconButton(
@@ -38,5 +38,5 @@ class SecounderyCostomAppbar extends StatelessWidget
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(60.h);
+  Size get preferredSize => Size.fromHeight(.08.sh);
 }

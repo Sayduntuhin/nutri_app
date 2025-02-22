@@ -13,9 +13,9 @@ class SettingsPage extends StatelessWidget {
         padding: EdgeInsets.all(20.w),
         child: ListView(
           children: [
-            SizedBox(height: 40.h),
+            SizedBox(height: 0.03.sh),
             _buildSectionTitle("Settings"),
-            SizedBox(height: 40.h),
+            SizedBox(height: 0.03.sh),
             _buildListTile("Terms & Conditions", () {
               context.push('/termsandconditions');
             }),
@@ -39,7 +39,9 @@ class SettingsPage extends StatelessWidget {
             _buildListTile("Your meal time",() {
               context.push('/mealtimepage');
             }),
-            _buildListTile("Log Out"),
+            _buildListTile("Log Out",(){
+              _showLogoutDialog(context);
+            }),
           ],
         ),
       ),
@@ -94,8 +96,8 @@ class SettingsPage extends StatelessWidget {
                   children: [
                     // Cancel Button
                     Container(
-                      width: 100.w,
-                      height: 35.h,
+                      width: 0.28.sw,
+                      height: 0.05.sh,
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.black),
                         borderRadius: BorderRadius.circular(5.r),
@@ -110,11 +112,11 @@ class SettingsPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20.w),
+                   Spacer(flex: 2,),
                     // Delete Button
                     Container(
-                      width: 100.w,
-                      height: 35.h,
+                      width: 0.28.sw,
+                      height: 0.05.sh,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.r),
                         color: Colors.black,
@@ -141,16 +143,115 @@ class SettingsPage extends StatelessWidget {
       },
     );
   }
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+              borderRadius:
+              BorderRadius.all(
+                  Radius.circular(10.0))),
+          insetPadding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.h), // Adjust horizontal padding to change width
+          child: Container(
+            width: 250.w, // Set a custom width for the dialog
+            padding: EdgeInsets.all(15.w), // Internal padding for content
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.r),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Title
+                Text(
+                  'Log Out?',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                // Content
+                Text(
+                  'Are you sure you want to log out?',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                // Buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Cancel Button
+                    Container(
+                      width: 0.28.sw,
+                      height: 0.05.sh,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                        borderRadius: BorderRadius.circular(5.r),
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(); // Close the dialog
+                        },
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                   Spacer(flex: 2,),
+                    // Delete Button
+                    Container(
+                      width: 0.28.sw,
+                      height: 0.05.sh,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.r),
+                        color: Colors.black,
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          context.go('/login');
+                          Navigator.of(context).pop(); // Close the dialog
+
+                        },
+                        child: Text(
+                          'Log Out',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   // Reusable ListTile widget
   Widget _buildListTile(String title, [Function()? onTap]) {
-    return ListTile(
-      title: Text(
-        title,
-        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
+    return SizedBox(
+      height: 0.06.sh,
+      child: ListTile(
+        title: Text(
+          title,
+          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
+        ),
+        trailing: Icon(Icons.arrow_forward_ios, size: 18.sp),
+        onTap: onTap ?? () {},
       ),
-      trailing: Icon(Icons.arrow_forward_ios, size: 18.sp),
-      onTap: onTap ?? () {},
     );
   }
 

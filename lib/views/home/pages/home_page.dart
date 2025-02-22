@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late final ValueNotifier<DateTime> _selectedDay;
   late final ValueNotifier<DateTime> _focusedDay;
-  int _notificationCount = 4;
+  final int _notificationCount = 4;
 
   @override
   void initState() {
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(80.h),
+        preferredSize: Size.fromHeight(0.07.sh),
         child: _buildAppBar(context),
       ),
       body: Padding(
@@ -44,11 +44,11 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 10.h,),
+            SizedBox(height: 0.01.sh,),
             buildCalendar(),
-            SizedBox(height: 10.h),
+            SizedBox(height: .01.sh),
             Container(
-              height: 125.h,
+              height: 0.13.sh,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.r),
                   color: Colors.white,
@@ -136,12 +136,12 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            SizedBox(height: 10.h),
+            SizedBox(height: .01.sh),
             _buildInfoCards(),
-            SizedBox(height: 20.h),
+            SizedBox(height: 0.02.sh),
             _buildRecentActivitieswhenempty(),
-            _buildRecentActivities(),
-            SizedBox(height: 100.h,)
+       /*     _buildRecentActivities(),
+            SizedBox(height: 100.h,)*/
           ],
         ),
       ),
@@ -151,7 +151,7 @@ class _HomePageState extends State<HomePage> {
   ///////////////////////AppBar Widget////////////////////////
   Widget _buildAppBar(BuildContext context,) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 5),
       child: AppBar(
         leading: Padding(
           padding: const EdgeInsets.only(left: 20),
@@ -181,8 +181,8 @@ class _HomePageState extends State<HomePage> {
                 ),
                 if (_notificationCount > 0)
                   Positioned(
-                    right: 2,
-                    top: -5,
+                    right: 4,
+                    top: -3,
                     child: Container(
                       padding: EdgeInsets.all(6.w),
                       decoration: BoxDecoration(
@@ -271,8 +271,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
   Widget _buildBurnedCaloriesCircle(
-      double width, double height, String Svgpath, double circleWidth,double imageWidth) {
-    return Container(
+      double width, double height, String svgPath, double circleWidth,double imageWidth) {return Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
@@ -281,13 +280,12 @@ class _HomePageState extends State<HomePage> {
       ),
       child: Center(
         child: SvgPicture.asset(
-          Svgpath,
+          svgPath,
           width:imageWidth ,
         ),
       ),
-    );
-  }
-  Widget _buildInfoCard(String value, String label, String Svgpath) {
+    );}
+  Widget _buildInfoCard(String value, String label, String svgPath) {
     return Card(
       color: Colors.white,
       shape: RoundedRectangleBorder(
@@ -327,7 +325,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(left: 5),
               child: _buildBurnedCaloriesCircle(
-                  70.w, 70.h, Svgpath, 5.w,28.w),
+                  70.w, 70.h, svgPath, 5.w,28.w),
             ),
           ],
         ),
@@ -340,6 +338,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            //////////////////////////Minerals status///////////////////////
             Row(
               children: [
                 Text(
@@ -378,12 +377,76 @@ class _HomePageState extends State<HomePage> {
                     _buildMineralsstatusRow("Potassium (K)", "(12mg)"),
                     _buildMineralsstatusRow("Calcium (Ca)","(1mg)"),
                     _buildMineralsstatusRow("Magnesium (Mg)","(12mg)"),
+                    SizedBox(height: 15.h,),
+                    Text("Minor minerals",style: TextStyle(color: Color(0xff3285A1),fontWeight: FontWeight.w500,fontSize: 14.sp),),
+                    SizedBox(height: 15.h,),
+                    _buildMineralsstatusRow("Iron (Fe)", "(12mg)"),
+                    _buildMineralsstatusRow("ZInc (Zn)","(1mg)"),
+                    _buildMineralsstatusRow("Copper (Cu)","(12mg)"),
+                    _buildMineralsstatusRow("Manganese (Mn)","(12mg)"),
+                    _buildMineralsstatusRow("Selenium (Se)","(12mg)"),
+                    _buildMineralsstatusRow("Iodine (I)","(12mg)"),
+                    _buildMineralsstatusRow("Chromium (Cr)", "(12mg)"),
+                    _buildMineralsstatusRow("Molybdenum (Mo)","(1mg)"),
+                    _buildMineralsstatusRow("Fluoride (F)","(12mg)"),
+                  ],
+                ),
+              ),
+            ),
+            ///////////////////////////////////Vitamins status row///////////////////////
+            Row(
+              children: [
+                Text(
+                  "Vitamins status",
+                  style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+                ),
+                Spacer(flex: 2,),
+                  Text(
+                    "Activities",
+                    style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400,color: Color(0xff9D9D9D)),
+                  ),
+                SizedBox(width: 10,),
+                  GestureDetector(
+                      onTap: (){context.push('/dailyactivitypage');},
+                      child: SvgPicture.asset('assets/svg/plus_icons.svg',width: 24,))
+              ],
+            ),
+            Card(
+              elevation: 0,
+              color: Color(0xffFAFAFA),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Fat soluble-vitamins",style: TextStyle(color: Color(0xffB9B432),fontWeight: FontWeight.w500,fontSize: 14.sp),),
+                    SizedBox(height: 15.h,),
+                    _buildMineralsstatusRow("Vitamin A", "(12mg)"),
+                    _buildMineralsstatusRow("Vitamin D2","(1mg)"),
+                    _buildMineralsstatusRow("Vitamin D3","(12mg)"),
+                    _buildMineralsstatusRow("Vitamin E","(12mg)"),
+                    _buildMineralsstatusRow("Vitamin K1","(12mg)"),
+                    _buildMineralsstatusRow("Vitamin K2","(12mg)"),
+                    SizedBox(height: 15.h,),
+                    Text("Water soluble-vitamins",style: TextStyle(color: Color(0xffB9B432),fontWeight: FontWeight.w500,fontSize: 14.sp),),
+                    SizedBox(height: 15.h,),
+                    _buildMineralsstatusRow("Vitamin C", "(12mg)"),
+                    _buildMineralsstatusRow("Vitamin B2","(1mg)"),
+                    _buildMineralsstatusRow("Vitamin B3","(12mg)"),
+                    _buildMineralsstatusRow("Vitamin B5","(12mg)"),
+                    _buildMineralsstatusRow("Vitamin B7","(12mg)"),
+                    _buildMineralsstatusRow("Vitamin B8","(12mg)"),  _buildMineralsstatusRow("Vitamin D2","(1mg)"),
+                    _buildMineralsstatusRow("Vitamin B9","(12mg)"),
+                    _buildMineralsstatusRow("Vitamin B10","(12mg)"),
+                    _buildMineralsstatusRow("Vitamin K1","(12mg)"),
+                    _buildMineralsstatusRow("Vitamin K2","(12mg)"),
                   ],
                 ),
               ),
             )
-        
-        
+
+
           ],
         ),
       ),
@@ -397,20 +460,27 @@ class _HomePageState extends State<HomePage> {
           children: [
             Text(
               "Recent activities",
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.spMin, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 0.02.sh),
             Card(
               elevation: 0,
               color: Color(0xffFAFAFA),
               child: Padding(
-                padding: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(15),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Center(child: Text("You haven't Upload any food",style: TextStyle(color: textColor,fontWeight: FontWeight.bold,fontSize: 14.sp),)),
-                    Text("Start tracking today's meals by taking a quick picture",style: TextStyle(color: textColor,fontWeight: FontWeight.w400,fontSize: 14.sp),),
+                    SizedBox(height: 0.016.sh,),
+                    Center(child: Text("You haven't Upload any food",style: TextStyle(color: textColor,fontWeight: FontWeight.bold,fontSize: 18.sp),)),
+                    Text("Start tracking today's meals by taking a quick picture",style: TextStyle(color: textColor,fontWeight: FontWeight.w400,fontSize: 16.sp),),
+                    Row(
+                      children: [
+                        Spacer(),
+                        SvgPicture.asset('assets/svg/down_arrow.svg',width: .12.sw,),
+                      ],
+                    ),
                   ],
                 ),
               ),

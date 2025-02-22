@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import '../../../themes/colours.dart';
+
 import '../widgets/custom_appbar_secoundery.dart';
 
 class MealPage extends StatefulWidget {
@@ -58,16 +58,14 @@ class _MealPageState extends State<MealPage> {
   Widget _buildMealItem(String mealType, int kcal, String viewText, String svgPath) {
     return InkWell(
       onTap: () {
-        // Navigate to meal details if it's not the add meal page
-        if (!widget.isAddMealPage) {
+        if (widget.isAddMealPage) {
+          _showSuccessPopup(context, mealType);
+        } else {
           context.push("/meal-details", extra: {
             "mealType": mealType,
             "kcal": kcal,
             "svgpath": svgPath // Pass mealType, kcal and svgPath
           });
-        } else {
-          // Handle adding meal functionality here
-          print("Add meal clicked");
         }
       },
       child: Card(
@@ -103,6 +101,39 @@ class _MealPageState extends State<MealPage> {
           ),
         ),
       ),
+    );
+  }
+
+  // Success Dialog for "Add here"
+  void _showSuccessPopup(BuildContext context, String foodName) {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Prevent user from closing manually
+      builder: (context) {
+        // Automatically close after 2 seconds
+        Future.delayed(Duration(seconds: 2), () {
+          if (context.mounted && Navigator.canPop(context)) {
+            Navigator.pop(context); // ✅ Close the dialog after the timeout
+          }
+        });
+
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.check_circle, color: Colors.black, size: .1.sw),
+              SizedBox(height: 10.h),
+              Text(
+                "Item added in $foodName successfully",
+                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

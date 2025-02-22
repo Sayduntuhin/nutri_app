@@ -2,43 +2,81 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../widget/calander_dialoge.dart';
 import '../widget/calander_selection_widget.dart';
 
-class VitaminConsumptionChart extends StatelessWidget {
+class VitaminConsumptionChart extends StatefulWidget {
   const VitaminConsumptionChart({super.key});
 
+  @override
+  State<VitaminConsumptionChart> createState() => _VitaminConsumptionChartState();
+}
+
+class _VitaminConsumptionChartState extends State<VitaminConsumptionChart> {
+  DateTime _selectedDate = DateTime.now(); // The selected date
+  // Show the calendar in a dialog when clicked
+  void _showCalendarDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CalendarDialogForAnalytics(
+          selectedDate: _selectedDate,
+          onDateSelected: (selectedDay) {
+            setState(() {
+              _selectedDate = selectedDay; // Update the selected date
+            });
+          },
+        );
+      },
+    );
+  }
+  String _formatDate(DateTime date) {
+    return "${date.day} ${_getMonthName(date.month)}"; // Format the date as "18 July"
+  }
+
+  // Helper method to get month name from month number
+  String _getMonthName(int month) {
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    return months[month - 1];
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(10.w),
       child: SizedBox(
-        height: 400.h,
+        height: 0.5.sh,
         child: Card(
           color: Colors.white,
           elevation: .1,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              buildSelectedClander( context,"Fat soluble vitamins","18 July"),
-              SizedBox(height: .02.sh,),
+              CalendarSelector(
+                title: "Fat soluble vitamins",
+                date: _formatDate(_selectedDate),
+                onCalendarTap: _showCalendarDialog, // Pass the calendar dialog callback
+              ),
+              SizedBox(height: .010.sh,),
               Row(
                 children: [
-                  SizedBox(width: .12.sw,),
+                  SizedBox(width: .13.sw,),
                   Text("mg/mcg"),
                   SizedBox(width: 10.w,),
                   SvgPicture.asset('assets/svg/arrow.svg'),
                 ],
               ),
-              SizedBox(height: .03.sh,),
-
+              SizedBox(height: .04.sh,),
               // Bar chart drawn using CustomPainter
               CustomPaint(
-                size: Size(280.w, 230.h,), // Chart size
+                size: Size(0.65.sw, 0.25.sh,), // Chart size
                 painter: VitaminBarChartPainter(),
               ),
               Spacer(),
               Row(
-       mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Spacer(flex: 1,),
                   Text("Consumption", style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400)),
@@ -129,7 +167,7 @@ class VitaminBarChartPainter extends CustomPainter {
       canvas.rotate(-50.27); // Rotate the text 90 degrees counter-clockwise
       textPainter.paint(
         canvas,
-        Offset(-45, -8),
+        Offset(-40, -8),
       );
       canvas.restore();
 

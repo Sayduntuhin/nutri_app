@@ -24,7 +24,7 @@ class _MealDetailsPageState extends State<MealDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 90.w,
+        leadingWidth: .3.sw,
         leading: Row(
           children: [
             IconButton(

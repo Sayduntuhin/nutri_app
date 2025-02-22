@@ -18,7 +18,7 @@ class NutritionChart extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: SizedBox(
-        height: 380.h,
+        height: 0.45.sh,
         child: Card(
           color: Colors.white,
           elevation: .1,

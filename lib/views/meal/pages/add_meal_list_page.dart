@@ -1,9 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nutri_app/themes/colours.dart';
 
 class AddMealListPage extends StatefulWidget {
@@ -12,7 +11,7 @@ class AddMealListPage extends StatefulWidget {
   const AddMealListPage({super.key, this.mealType});
 
   @override
-  _AddMealListPageState createState() => _AddMealListPageState();
+  State<AddMealListPage> createState() => _AddMealListPageState();
 }
 
 class _AddMealListPageState extends State<AddMealListPage> {
@@ -51,14 +50,17 @@ class _AddMealListPageState extends State<AddMealListPage> {
   /// **🔻 App Bar with Dropdown**
   Widget _buildAppBar(BuildContext context) {
     return AppBar(
-      leadingWidth: 90.w,
+      leadingWidth: 0.225.sw,
       leading: Row(
         children: [
           IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () => Navigator.pop(context),
           ),
-          Text("Back",style: TextStyle(color: textColor),)
+          Text(
+            "Back",
+            style: TextStyle(color: textColor),
+          )
         ],
       ),
       title: Padding(
@@ -69,8 +71,13 @@ class _AddMealListPageState extends State<AddMealListPage> {
               value: selectedMeal,
               icon: Icon(Icons.keyboard_arrow_down, color: Colors.black),
               underline: Container(),
-              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w600, color: textColor,letterSpacing: 1.2),
-              items: ["Breakfast", "Lunch", "Dinner", "Snacks"].map((String meal) {
+              style: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w600,
+                  color: textColor,
+                  letterSpacing: 1.2),
+              items:
+                  ["Breakfast", "Lunch", "Dinner", "Snacks"].map((String meal) {
                 return DropdownMenuItem<String>(
                   value: meal,
                   child: Text(meal),
@@ -94,7 +101,7 @@ class _AddMealListPageState extends State<AddMealListPage> {
   /// **🔻 Search Bar**
   Widget _buildSearchBar() {
     return Container(
-      height: 45.h,
+      height: 0.06.sh,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10.r),
@@ -107,18 +114,30 @@ class _AddMealListPageState extends State<AddMealListPage> {
             child: Icon(Icons.search, color: Color(0xff26272B), size: 20),
           ),
           Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: "Search name",
-                hintStyle: TextStyle(color: Colors.grey, fontSize: 14.sp),
-                border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(horizontal: 0.w,vertical: 14.h),
+            child: Center(
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "Search name",
+                  hintStyle: TextStyle(color: Colors.grey, fontSize: 14.sp),
+                  border: InputBorder.none,
+                  /*contentPadding:
+                      EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.022.sh),*/
+                ),
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            child: SvgPicture.asset('assets/svg/scan.svg', width: 20.w, height: 20.h,colorFilter: const ColorFilter.mode(Color(0xff6B7280), BlendMode.srcIn)),
+          IconButton(
+            onPressed: () {
+              context.push('/scanner');
+            },
+            icon: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              child: SvgPicture.asset('assets/svg/scan.svg',
+                  width: 20.w,
+                  height: 20.h,
+                  colorFilter: const ColorFilter.mode(
+                      Color(0xff6B7280), BlendMode.srcIn)),
+            ),
           ),
         ],
       ),
@@ -130,14 +149,17 @@ class _AddMealListPageState extends State<AddMealListPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _filterButton("Quick log","assets/svg/quick_log.svg" ,isActive: selectedFilter == "Quick log"),
-        _filterButton("Recent", 'assets/svg/recent.svg', isActive: selectedFilter == "Recent"),
-        _filterButton("Created",'assets/svg/create.svg' ,isActive: selectedFilter == "Created"),
+        _filterButton("Quick log", "assets/svg/quick_log.svg",
+            isActive: selectedFilter == "Quick log"),
+        _filterButton("Recent", 'assets/svg/recent.svg',
+            isActive: selectedFilter == "Recent"),
+        _filterButton("Created", 'assets/svg/create.svg',
+            isActive: selectedFilter == "Created"),
       ],
     );
   }
 
-  Widget _filterButton(String text,String svgPath, {bool isActive = false}) {
+  Widget _filterButton(String text, String svgPath, {bool isActive = false}) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -162,7 +184,9 @@ class _AddMealListPageState extends State<AddMealListPage> {
               ),
             ),
             SizedBox(width: 5.w),
-            SvgPicture.asset(svgPath,colorFilter: ColorFilter.mode(isActive ? Color(0xffFDFDFE) : textColor, BlendMode.srcIn)),
+            SvgPicture.asset(svgPath,
+                colorFilter: ColorFilter.mode(
+                    isActive ? Color(0xffFDFDFE) : textColor, BlendMode.srcIn)),
           ],
         ),
       ),
@@ -176,10 +200,12 @@ class _AddMealListPageState extends State<AddMealListPage> {
     return ListView.builder(
       itemCount: foodItems.length,
       itemBuilder: (context, index) {
-        return _buildFoodItem(foodItems[index]["name"]!, foodItems[index]["kcal"]!);
+        return _buildFoodItem(
+            foodItems[index]["name"]!, foodItems[index]["kcal"]!);
       },
     );
   }
+
   Widget _buildFoodItem(String name, String kcal) {
     return GestureDetector(
       onTap: () {
@@ -244,7 +270,8 @@ class _AddMealListPageState extends State<AddMealListPage> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.r),
                   ),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                 ),
               ),
               SizedBox(height: 15.h),
@@ -258,7 +285,8 @@ class _AddMealListPageState extends State<AddMealListPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.r),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.h),
                 ),
                 child: Text(
                   "Done",
@@ -302,11 +330,7 @@ class _AddMealListPageState extends State<AddMealListPage> {
     );
 
     // ✅ Use Timer to close the dialog after 2 seconds
-
   }
-
-
-
 
   /// **🔻 Sample Food Items for Different Filters**
   List<Map<String, String>> _getFoodItems(String filter) {

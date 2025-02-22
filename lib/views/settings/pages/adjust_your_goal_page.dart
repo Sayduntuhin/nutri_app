@@ -33,7 +33,7 @@ class _AdjustGoalPageState extends State<AdjustGoalPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildSectionTitle("Adjust Your Goal Today"),
-            SizedBox(height: 50.h),
+            SizedBox(height: 0.05.sh),
             // Calories Section
             _buildInputSection(
               svgPath: 'assets/svg/cal_with_name.svg',
@@ -41,7 +41,7 @@ class _AdjustGoalPageState extends State<AdjustGoalPage> {
               controller: _caloriesController,
               unit: 'kcal',
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 0.02.sh),
 
             // Carbohydrates Section
             _buildInputSection(
@@ -92,12 +92,12 @@ class _AdjustGoalPageState extends State<AdjustGoalPage> {
 
           children: [
             SvgPicture.asset(svgPath),
-            SizedBox(width: 10.w),
+            SizedBox(width: .02.sw),
             Text(
               label,
               style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
             ),
-            SizedBox(width: 20.w,)
+            SizedBox(width: .02.sw),
 
           ],
         ),
@@ -106,8 +106,8 @@ class _AdjustGoalPageState extends State<AdjustGoalPage> {
               thickness: .4.h,
             )),
         Container(
-          width: 100.w,
-          height: 30.h,
+          width: 0.3.sw,
+          height: 35.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.r),
             border: Border.all(color: Colors.grey.shade300),
@@ -118,8 +118,9 @@ class _AdjustGoalPageState extends State<AdjustGoalPage> {
               hintText: '0',
               suffixText: unit,
               border: InputBorder.none,
+              isDense: true,
               contentPadding:
-                  EdgeInsets.symmetric(horizontal: 10.w, vertical: 7.h),
+                  EdgeInsets.symmetric(horizontal: 0.015.sw, vertical: 0.003.sh),
             ),
             keyboardType: TextInputType.number,
           ),

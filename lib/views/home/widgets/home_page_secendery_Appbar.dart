@@ -5,7 +5,7 @@ import '../../../themes/colours.dart';
 
 Widget buildAppBar(BuildContext context, String title, String subtitle) {
   return AppBar(
-    leadingWidth: 90.w,
+    leadingWidth: .3.sw,
     leading: Row(
       children: [
         IconButton(

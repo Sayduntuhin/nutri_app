@@ -80,7 +80,7 @@ class PersonalDetailsPage extends StatelessWidget {
       color: Colors.white,
       elevation: 1,
       child: SizedBox(
-        height: 75.h,
+        height: 0.1.sh,
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Row(
@@ -141,26 +141,32 @@ class PersonalDetailsPage extends StatelessWidget {
 
 /// Build list tile with custom onTap function
 Widget _buildListTile(String title, BuildContext context, VoidCallback onTap) {
-  return ListTile(
-    title: Text(
-      title,
-      style: TextStyle(fontSize: 16.sp),
+  return SizedBox(
+    height: 0.06.sh,
+    child: ListTile(
+      title: Text(
+        title,
+        style: TextStyle(fontSize: 16.sp),
+      ),
+      trailing: Icon(Icons.arrow_forward_ios, size: 18.sp),
+      onTap: onTap, // Use the passed custom onTap function
     ),
-    trailing: Icon(Icons.arrow_forward_ios, size: 18.sp),
-    onTap: onTap, // Use the passed custom onTap function
   );
 }
 
 // ListTile widget for each detail item
 Widget _buildListTileForAge(String title, int age) {
-  return ListTile(
-    title: Text(
-      title,
-      style: TextStyle(fontSize: 16.sp),
-    ),
-    trailing: Text(
-      "${age}y",
-      style: TextStyle(fontSize: 16.sp),
+  return SizedBox(
+    height: 0.06.sh,
+    child: ListTile(
+      title: Text(
+        title,
+        style: TextStyle(fontSize: 16.sp),
+      ),
+      trailing: Text(
+        "${age}y",
+        style: TextStyle(fontSize: 16.sp),
+      ),
     ),
   );
 }

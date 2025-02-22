@@ -1,25 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
+import '../widget/calander_dialoge.dart';
 import '../widget/calander_selection_widget.dart';
 
-class MacromineralsBarChart extends StatelessWidget {
+class MacromineralsBarChart extends StatefulWidget {
   const MacromineralsBarChart({super.key});
 
+  @override
+  State<MacromineralsBarChart> createState() => _MacromineralsBarChartState();
+}
+
+class _MacromineralsBarChartState extends State<MacromineralsBarChart> {
+  DateTime _selectedDate = DateTime.now(); // The selected date
+
+  // Show the calendar in a dialog when clicked
+  void _showCalendarDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CalendarDialogForAnalytics(
+          selectedDate: _selectedDate,
+          onDateSelected: (selectedDay) {
+            setState(() {
+              _selectedDate = selectedDay; // Update the selected date
+            });
+          },
+        );
+      },
+    );
+  }
+
+  // Format the selected date to display in "DD Month" format
+  String _formatDate(DateTime date) {
+    return "${date.day} ${_getMonthName(date.month)}"; // Format the date as "18 July"
+  }
+
+  // Helper method to get month name from month number
+  String _getMonthName(int month) {
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    return months[month - 1];
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
         padding: EdgeInsets.all(10.w),
         child: SizedBox(
-          height: 380.h,
+          height: 0.45.sh,
           child: Card(
             color: Colors.white,
             elevation: .1,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                buildSelectedClander( context,"Macrominerals","18 July"),
+                CalendarSelector(
+                  title: "Macrominerals",
+                  date: _formatDate(_selectedDate),
+                  onCalendarTap: _showCalendarDialog, // Pass the calendar dialog callback
+                ),
                 Text(
                   "Daily intake (mg)",
                   style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w300,color: Color(0xff6D6D6D)),

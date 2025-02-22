@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nutri_app/views/meal/pages/meal_page.dart';
@@ -23,14 +24,19 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       extendBody: true,
       body: _pages[_currentIndex],
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.push("/foodscanner");
-        },
-        shape:  CircleBorder(),
-        backgroundColor: Colors.black,
-        child: SvgPicture.asset('assets/svg/scan.svg'),
-      ), // Display the page based on selected tab
+      floatingActionButton: Padding(
+        padding:  EdgeInsets.only(bottom: .04.sh,left: 0.8.sw),
+        child: FloatingActionButton(
+          onPressed: () {
+            context.push("/foodscanner");
+          },
+          shape:  CircleBorder(),
+          backgroundColor: Colors.black,
+          child: SvgPicture.asset('assets/svg/scan.svg'),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked, // Move FAB to bottom center
+// Display the page based on selected tab
       bottomNavigationBar: CustomBottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {

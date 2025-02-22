@@ -59,7 +59,7 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
       backgroundColor: Color(0xffF3F6FF),
       title: Text("Enter Time"),
       content: Container(
-        width: MediaQuery.of(context).size.width * 0.9.sp,
+        width: 0.5.sw,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -69,17 +69,17 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
                   "Meal Time",
                   style: TextStyle(fontSize: 12.sp, color: Color(0xff696969)),
                 ),
-                Spacer(flex: 2),
+                Spacer(flex: 4),
                 Text(
                   "Hour",
                   style: TextStyle(fontSize: 12.sp, color: Color(0xff696969)),
                 ),
-                SizedBox(width: 40),
+                Spacer(flex: 4),
                 Text(
                   "Min",
                   style: TextStyle(fontSize: 12.sp, color: Color(0xff696969)),
                 ),
-                SizedBox(width: 20),
+                Spacer(flex: 2),
                 Text(
                   "Meridiem \nindicators",
                   style: TextStyle(fontSize: 12.sp, color: Color(0xff696969)),
@@ -89,10 +89,12 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
             Divider(),
             Row(
               children: [
-                Text("${widget.mealName}:", style: TextStyle(fontSize: 16.sp)),
-                Spacer(flex: 2),
                 SizedBox(
-                  width: 0.1.sw,
+                    width: .18.sw,
+                    child: Text("${widget.mealName}:", style: TextStyle(fontSize: 16.sp))),
+                Spacer(flex: 4),
+                SizedBox(
+                  width: 0.12.sw,
                   height: 0.04.sh,
                   child: TextField(
                     controller: hourController,
@@ -120,11 +122,11 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
                     },
                   ),
                 ),
-                SizedBox(width: 10),
+                Spacer(flex: 2),
                 Image.asset("assets/images/colon.png", height: 20.w),
-                SizedBox(width: 10),
+                Spacer(flex: 2),
                 SizedBox(
-                  width: 0.1.sw,
+                  width: 0.12.sw,
                   height: 0.04.sh,
                   child: TextField(
                     controller: minuteController,
@@ -152,7 +154,7 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
                     },
                   ),
                 ),
-                SizedBox(width: 15),
+                Spacer(flex: 3),
                 Column(
                   children: [
                     GestureDetector(
@@ -162,7 +164,7 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
                         });
                       },
                       child: SizedBox(
-                        width: 35.w,
+                        width: .1.sw,
                         child: Row(
                           children: [
                             SvgPicture.asset(
@@ -185,7 +187,7 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
                         });
                       },
                       child: SizedBox(
-                        width: 35.w,
+                        width: .1.sw,
                         child: Row(
                           children: [
                             SvgPicture.asset(
@@ -203,7 +205,7 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
                     ),
                   ],
                 ),
-                SizedBox(width: 15),
+                Spacer(flex: 2),
               ],
             ),
           ],
