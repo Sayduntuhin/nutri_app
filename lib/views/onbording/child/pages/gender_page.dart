@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:nutri_app/themes/text_size.dart';
-
+import 'package:get/get.dart';
+import 'package:nutri_app/views/onbording/motherPage/multi_setip_page.dart';
+import '../../../../controller/onbording_screen_controller.dart';
+import '../../../../themes/text_size.dart';
 import '../../../widgets/custom_button.dart';
 import '../../../widgets/secoundery_costom_appbar.dart';
-
 class GenderSelectionPage extends StatefulWidget {
   final bool isOnboarding;
 
@@ -15,13 +16,10 @@ class GenderSelectionPage extends StatefulWidget {
 }
 
 class _GenderSelectionPageState extends State<GenderSelectionPage> {
-  String? selectedGender;
-
+  final MultiStepPageController controller = Get.find();
 
   void onGenderSelect(String gender) {
-    setState(() {
-      selectedGender = gender;
-    });
+    controller.onboardingData.update((data) => data?.gender = gender);
   }
 
   @override
@@ -48,19 +46,18 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
               style: TextStyle(fontSize: 14.sp),
               textAlign: TextAlign.center,
             ),
-            Spacer(
-              flex: 3,
-            ),
+            Spacer(flex: 3),
+            // Using Obx to listen to changes in selectedGender
             GestureDetector(
               onTap: () {
                 onGenderSelect('Male');
               },
-              child: Container(
+              child: Obx(() => Container(
                 width: 340.w,
                 height: 45.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.r),
-                  color: selectedGender == 'Male' ? Colors.black : Colors.white,
+                  color: controller.onboardingData.value.gender == 'Male' ? Colors.black : Colors.white,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.shade200,
@@ -72,24 +69,23 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
                 child: Center(
                     child: Text('Male',
                         style: TextStyle(
-                            color: selectedGender == 'Male'
+                            color: controller.onboardingData.value.gender == 'Male'
                                 ? Colors.white
                                 : Colors.black,
                             fontSize: 16.sp))),
-              ),
+              ) ),
             ),
             SizedBox(height: 15.h),
             GestureDetector(
               onTap: () {
                 onGenderSelect('Female');
               },
-              child: Container(
+              child: Obx(() => Container(
                 width: 340.w,
                 height: 45.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.r),
-                  color:
-                      selectedGender == 'Female' ? Colors.black : Colors.white,
+                  color: controller.onboardingData.value.gender == 'Female' ? Colors.black : Colors.white,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.shade200,
@@ -102,26 +98,22 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
                   child: Text(
                     'Female',
                     style: TextStyle(
-                        color: selectedGender == 'Female'
+                        color: controller.onboardingData.value.gender == 'Female'
                             ? Colors.white
                             : Colors.black,
                         fontSize: 16.sp),
                   ),
                 ),
-              ),
+              )),
             ),
-            Spacer(
-              flex: 3,
-            ),
+            Spacer(flex: 3),
             if (!widget.isOnboarding)
               CustomButton(
                 width: 340.w,
                 text: "Update Gender",
                 onPressed: () {},
               ),
-            Spacer(
-              flex: 1,
-            ),
+            Spacer(flex: 1),
           ],
         ),
       ),

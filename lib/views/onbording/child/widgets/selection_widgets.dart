@@ -18,11 +18,11 @@ class SelectionItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
       child: Container(
         width: 340.w,
-        height: 45.h,
+        height: 50.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.r),
           color: isSelected ? Colors.black : Colors.white,

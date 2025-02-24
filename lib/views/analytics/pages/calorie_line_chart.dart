@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
 class ChartWidget extends StatelessWidget {
+  const ChartWidget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,40 +18,47 @@ class ChartWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 10,left: 15,right: 15,bottom: 10),
+                padding: const EdgeInsets.only(
+                    top: 10, left: 15, right: 15, bottom: 10),
                 child: Row(
                   children: [
                     Text(
                       "Calorie (Kcal)",
-                      style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          fontSize: 14.sp, fontWeight: FontWeight.bold),
                     ),
                     Spacer(),
                     Text(
                       "Weekly Intake",
-                      style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w300),
+                      style: TextStyle(
+                          fontSize: 12.sp, fontWeight: FontWeight.w300),
                     ),
                   ],
                 ),
               ),
               SizedBox(
                   width: .85.sw,
-                  child: Divider(color: Color(0xffE0E0E0),)),
+                  child: Divider(
+                    color: Color(0xffE0E0E0),
+                  )),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     "Yesterday",
-                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
+                    style:
+                        TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
                   ),
-                  SizedBox( width: 10.w),
+                  SizedBox(width: 10.w),
                   Text(
                     '•', // Bullet point symbol
                     style: TextStyle(fontSize: 30.sp, color: Color(0xffA1CE50)),
                   ),
-                  SizedBox( width: 10.w),
+                  SizedBox(width: 10.w),
                   Text(
                     "Calorie Goal",
-                    style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
+                    style:
+                        TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
                   ),
                 ],
               ),
@@ -60,7 +66,10 @@ class ChartWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 40),
                 child: CustomPaint(
-                  size: Size(310.w, 230.h,), // Chart size
+                  size: Size(
+                    310.w,
+                    230.h,
+                  ), // Chart size
                   painter: CustomChartPainter(),
                 ),
               ),
@@ -107,9 +116,6 @@ class CustomChartPainter extends CustomPainter {
       ..color = Colors.white
       ..strokeWidth = 2
       ..style = PaintingStyle.fill;
-
-    double minX = 0;
-    double maxX = dataPoints.length - 1;
     double minY = 500;
     double maxY = 3000;
 

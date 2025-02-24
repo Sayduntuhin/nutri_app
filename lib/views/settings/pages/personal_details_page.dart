@@ -1,11 +1,8 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nutri_app/views/widgets/secoundery_costom_appbar.dart';
-import 'package:path/path.dart';
 
 class PersonalDetailsPage extends StatelessWidget {
   const PersonalDetailsPage({super.key});

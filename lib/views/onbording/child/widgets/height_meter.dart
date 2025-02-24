@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class VerticalScrollPicker extends StatefulWidget {
@@ -6,6 +8,7 @@ class VerticalScrollPicker extends StatefulWidget {
   final double interval;
   final Color? backgroundItemColor;
   final Color? foregroundItemColor;
+  final String Unit;
   final ValueChanged<double>? onChanged;
 
   const VerticalScrollPicker({
@@ -16,6 +19,7 @@ class VerticalScrollPicker extends StatefulWidget {
     this.backgroundItemColor,
     this.foregroundItemColor,
     this.onChanged,
+    required this.Unit,
   });
 
   @override
@@ -26,7 +30,6 @@ class _VerticalScrollPickerState extends State<VerticalScrollPicker> {
   double pickedValue = 0;
   double scrollOffset = 0;
   double itemHeight = 16.0;
-
   @override
   void initState() {
     super.initState();
@@ -38,7 +41,7 @@ class _VerticalScrollPickerState extends State<VerticalScrollPicker> {
     return ConstrainedBox(
       constraints: BoxConstraints(
         minHeight: 300,
-        minWidth: 200,
+        minWidth: 260,
       ),
       child: GestureDetector(
         onVerticalDragUpdate: _onDragVertically,
@@ -68,6 +71,8 @@ class _VerticalScrollPickerState extends State<VerticalScrollPicker> {
               color: widget.foregroundItemColor,
               pickedValue: pickedValue,
               offsetLeft: 18,
+              Unit: widget.Unit,
+
             ),
           ),
         ),
@@ -174,7 +179,7 @@ class ScalePainter extends CustomPainter {
     }
 
     // **Pass picked value via callback**
-    onMidValueChanged(pickedValue);
+    onMidValueChanged(max(pickedValue,0));
   }
 
   /// Draws a value label at the given position
@@ -207,11 +212,13 @@ class MarkPainter extends CustomPainter {
   final double pickedValue;
   final double offsetLeft;
   final Color? color;
+  final String Unit;
 
   MarkPainter({
     required this.pickedValue,
     this.offsetLeft = 12,
     this.color,
+    required this.Unit
   });
 
   @override
@@ -271,11 +278,12 @@ class MarkPainter extends CustomPainter {
     canvas.drawPath(horizontalArrowHead, arrowPaint);
 
     // **Text next to Horizontal Arrow**
+    double finalValue = double.parse(pickedValue.toStringAsFixed(1));
     final TextSpan textSpan = TextSpan(
-      text: double.parse(pickedValue.toStringAsFixed(2)).toString(),
+      text: '${max(finalValue,0).toString()} $Unit',
       style: TextStyle(
         color: color ?? Colors.black,
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: FontWeight.bold,
       ),
     );

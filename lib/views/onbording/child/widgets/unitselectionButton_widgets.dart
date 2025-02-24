@@ -8,12 +8,12 @@ class UnitSelectionButton extends StatelessWidget {
   final Function(String) onUnitSelect; // Callback function for when the button is pressed
    final double width ;
   const UnitSelectionButton({
-    Key? key,
+    super.key,
     required this.unitText,
     required this.selectedUnit,
     required this.onUnitSelect,
     required this.width
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +22,17 @@ class UnitSelectionButton extends StatelessWidget {
       width: width,
       child: ElevatedButton(
         onPressed: () => onUnitSelect(unitText),
-        child: Text(
-          unitText,
-          style: TextStyle(
-            color: selectedUnit == unitText ? Colors.white : Colors.black,
-          ),
-        ),
         style: ElevatedButton.styleFrom(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.r)),
           elevation: 0,
           backgroundColor:
           selectedUnit == unitText ? Colors.black : const Color(0xffF3F6FF),
+        ),
+        child: Text(
+          unitText,
+          style: TextStyle(
+            color: selectedUnit == unitText ? Colors.white : Colors.black,
+          ),
         ),
       ),
     );

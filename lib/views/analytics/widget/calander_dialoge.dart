@@ -18,7 +18,7 @@ class CalendarDialogForAnalytics extends StatelessWidget {
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: SizedBox(
-        height: 0.1.sh, // Set the desired height for the dialog.0, // Set height to ensure it fits well
+        height: 0.12.sh, // Set the desired height for the dialog.0, // Set height to ensure it fits well
         child: Padding(
           padding: const EdgeInsets.only(top: 20),
           child: TableCalendar(

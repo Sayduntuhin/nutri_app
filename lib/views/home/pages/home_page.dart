@@ -140,7 +140,7 @@ class _HomePageState extends State<HomePage> {
             _buildInfoCards(),
             SizedBox(height: 0.02.sh),
             _buildRecentActivitieswhenempty(),
-       /*     _buildRecentActivities(),
+        /*    _buildRecentActivities(),
             SizedBox(height: 100.h,)*/
           ],
         ),
@@ -436,7 +436,8 @@ class _HomePageState extends State<HomePage> {
                     _buildMineralsstatusRow("Vitamin B3","(12mg)"),
                     _buildMineralsstatusRow("Vitamin B5","(12mg)"),
                     _buildMineralsstatusRow("Vitamin B7","(12mg)"),
-                    _buildMineralsstatusRow("Vitamin B8","(12mg)"),  _buildMineralsstatusRow("Vitamin D2","(1mg)"),
+                    _buildMineralsstatusRow("Vitamin B8","(12mg)"),
+                    _buildMineralsstatusRow("Vitamin D2","(1mg)"),
                     _buildMineralsstatusRow("Vitamin B9","(12mg)"),
                     _buildMineralsstatusRow("Vitamin B10","(12mg)"),
                     _buildMineralsstatusRow("Vitamin K1","(12mg)"),

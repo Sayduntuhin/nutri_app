@@ -1,27 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:nutri_app/themes/text_size.dart';
-
+import 'package:get/get.dart';
+import '../../../../controller/onbording_screen_controller.dart';
 import '../widgets/selection_widgets.dart';
 
-class AchievingYourGoalPage extends StatefulWidget {
+class AchievingYourGoalPage extends StatelessWidget {
   const AchievingYourGoalPage({super.key});
 
   @override
-  State<AchievingYourGoalPage> createState() => _AchievingYourGoalPage();
-}
-
-class _AchievingYourGoalPage extends State<AchievingYourGoalPage> {
-  String? selectedGoal;
-
-  void onGoalSelect(String goal) {
-    setState(() {
-      selectedGoal = goal;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    // Get the instance of AchievingYourGoalController
+    final AchievingYourGoalController controller = Get.find();
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(left: 35.w, right: 20.w, top: 20.h),
@@ -37,44 +27,32 @@ class _AchievingYourGoalPage extends State<AchievingYourGoalPage> {
               textAlign: TextAlign.center,
             ),
             Spacer(flex: 3),
-            SelectionItem(
-              text: 'Inconsistent routine',
-              iconPath: 'assets/svg/dot.svg',
-              onTap: () => onGoalSelect('Inconsistent'),
-              isSelected: selectedGoal == 'Inconsistent',
-            ),
+            // Each goal selection should update the controller's state
+            _buildSelectionItem(controller, 'Inconsistent routine', 'Inconsistent'),
             SizedBox(height: 15.h),
-            SelectionItem(
-              text: 'Poor dietary choices',
-              iconPath: 'assets/svg/dot.svg',
-              onTap: () => onGoalSelect('Poor'),
-              isSelected: selectedGoal == 'Poor',
-            ),
+            _buildSelectionItem(controller, 'Poor dietary choices', 'Poor'),
             SizedBox(height: 15.h),
-            SelectionItem(
-              text: 'Limited support system',
-              iconPath: 'assets/svg/dot.svg',
-              onTap: () => onGoalSelect('Limited'),
-              isSelected: selectedGoal == 'Limited',
-            ),
+            _buildSelectionItem(controller, 'Limited support system', 'Limited'),
             SizedBox(height: 15.h),
-            SelectionItem(
-              text: 'Hectic lifestyle',
-              iconPath: 'assets/svg/dot.svg',
-              onTap: () => onGoalSelect('Hectic'),
-              isSelected: selectedGoal == 'Hectic',
-            ),
+            _buildSelectionItem(controller, 'Hectic lifestyle', 'Hectic'),
             SizedBox(height: 15.h),
-            SelectionItem(
-              text: 'Lack of meal ideas',
-              iconPath: 'assets/svg/dot.svg',
-              onTap: () => onGoalSelect('Lack'),
-              isSelected: selectedGoal == 'Lack',
-            ),
+            _buildSelectionItem(controller, 'Lack of meal ideas', 'Lack'),
             Spacer(flex: 3),
           ],
         ),
       ),
     );
+  }
+
+  // Helper method to create a SelectionItem
+  Widget _buildSelectionItem(AchievingYourGoalController controller, String text, String goal) {
+    return Obx(() {
+      return SelectionItem(
+        text: text,
+        iconPath: 'assets/svg/dot.svg',
+        onTap: () => controller.selectGoal(goal),
+        isSelected: controller.selectedGoal.value == goal,
+      );
+    });
   }
 }

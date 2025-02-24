@@ -4,7 +4,7 @@ class CustomButton extends StatelessWidget {
   final String text;
   double? width = 350.w;
   double? height;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final bool disableButton;
 
    CustomButton({Key? key, required this.text, required this.onPressed, this.disableButton = false, this.width, this.height}) : super(key: key);
@@ -17,7 +17,7 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor:  disableButton ? Colors.grey : Colors.black,
+          backgroundColor:  disableButton ? Color(0xffA0A0A0) : Color(0xff090F03),
           padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 30.w),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.r),
@@ -27,7 +27,7 @@ class CustomButton extends StatelessWidget {
           text,
           style: TextStyle(
             fontSize: 16.sp,
-            color: Colors.white,
+            color: disableButton ? Colors.black : Colors.white,
           ),
         ),
       ),

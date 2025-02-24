@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:nutri_app/views/onbording/motherPage/multi_setip_page.dart';
 import 'package:nutri_app/views/widgets/custom_button.dart';
 import 'package:nutri_app/views/widgets/secoundery_costom_appbar.dart';
+import '../../../../controller/onbording_screen_controller.dart';
 import '../widgets/height_meter.dart';
 import '../widgets/unitselectionButton_widgets.dart';
 
 class HeightPage extends StatefulWidget {
-  final bool isOnboarding; // Added parameter to check if it's Onboarding or Edit page
+  final bool isOnboarding;
 
-  const HeightPage({super.key, required this.isOnboarding}); // Pass the parameter
+  const HeightPage({super.key, required this.isOnboarding});
 
   @override
   State<HeightPage> createState() => _HeightPageState();
 }
 
 class _HeightPageState extends State<HeightPage> {
-  double height = 185;
   String selectedUnit = "Centimeter";
+  final HeightPageController heightController = Get.put(HeightPageController());
+
+  final MultiStepPageController parentController = Get.find();
 
   void onUnitSelect(String unit) {
     setState(() {
@@ -24,24 +29,13 @@ class _HeightPageState extends State<HeightPage> {
     });
   }
 
-  String get heightDisplay {
-    if (selectedUnit == "Pounds") {
-      double feet = height / 30.48;
-      return "${feet.toStringAsFixed(2)} ft";
-    } else if (selectedUnit == "Inch") {
-      double inches = height / 2.54;
-      return "${inches.toStringAsFixed(2)} in";
-    } else {
-      return "$height cm";
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: widget.isOnboarding
-          ? null // If it's onboarding, no appbar is shown
-          : SecounderyCostomAppbar(onBackPressed: Navigator.of(context).pop), // If it's the edit page, show the appbar
+          ? null // If onboarding, no appbar
+          : SecounderyCostomAppbar(
+              onBackPressed: Navigator.of(context).pop), // If edit, show appbar
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(left: 35.w, right: 20.w, top: 20.h),
@@ -94,23 +88,30 @@ class _HeightPageState extends State<HeightPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 0.5.sh,
-                    width: 150,
+                    height: 0.48.sh,
+                    width: 0.5.sw,
                     child: VerticalScrollPicker(
                       foregroundItemColor: Color(0xff090F03),
                       backgroundItemColor: Colors.black12,
-                      bottomValue: 0, // Minimum value at bottom
-                      topValue: 200, // Maximum value at top
+                      bottomValue: 0,
+                      // Minimum value at bottom
+                      topValue: 200,
+                      // Maximum value at top
                       interval: 10,
+                      Unit: _unite(selectedUnit),
                       onChanged: (value) {
-                        print("-------------------$value");
-                      }, // Step size
+                        // When the user scrolls, mark the height as changed
+                        heightController.setHeightChanged(true);
+                      },
                     ),
                   ),
                   Spacer(flex: 1),
+                  // Gender-based image display
                   Image.asset(
-                    "assets/images/male2.png",
-                    height: 0.5.sh,
+                    parentController.onboardingData.value.gender == 'Female'
+                        ? 'assets/images/female.png'
+                        : 'assets/images/male.png',
+                    height: 0.36.sh,
                   ),
                 ],
               ),
@@ -119,7 +120,7 @@ class _HeightPageState extends State<HeightPage> {
               if (!widget.isOnboarding)
                 CustomButton(
                   width: 340.w,
-                  text: "Update Height ",
+                  text: "Update Height",
                   onPressed: () {},
                 ),
               Spacer(),
@@ -128,5 +129,13 @@ class _HeightPageState extends State<HeightPage> {
         ),
       ),
     );
+  }
+
+  String _unite(String tab) {
+    return tab == "Centimeter"
+        ? "cm"
+        : tab == "Feet"
+            ? "ft"
+            : "in";
   }
 }
