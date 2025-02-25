@@ -111,7 +111,7 @@ class _HeightPageState extends State<HeightPage> {
                     parentController.onboardingData.value.gender == 'Female'
                         ? 'assets/images/female.png'
                         : 'assets/images/male.png',
-                    height: 0.36.sh,
+                    height: 0.35.sh,
                   ),
                 ],
               ),

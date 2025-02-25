@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 class MealTimeDialog extends StatefulWidget {
   final String mealName;
   final String? initialTime;
-  final Function(String time) onTimeSelected;
+  final Function(DateTime time)? onTimeSelected;
 
   const MealTimeDialog({
-    Key? key,
+    super.key,
     required this.mealName,
     required this.initialTime,
-    required this.onTimeSelected,
-  }) : super(key: key);
+    this.onTimeSelected,
+  });
 
   @override
-  _MealTimeDialogState createState() => _MealTimeDialogState();
+  State<MealTimeDialog> createState() => _MealTimeDialogState();
 }
 
 class _MealTimeDialogState extends State<MealTimeDialog> {
@@ -47,15 +49,27 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
     super.dispose();
   }
 
+  DateTime convertToDateTime(String timeStr) {
+    // Example input: "05:30 PM"
+    final DateFormat format = DateFormat("hh:mm a");
+    return format.parse(timeStr);
+  }
+
+  String formatTime(DateTime? time) {
+    return time != null ? DateFormat('hh:mm a').format(time) : '00:00 AM';
+  }
+
   void _updateTime() {
-    widget.onTimeSelected("$hour:$minute $meridian");
-    Navigator.pop(context); // Close the dialog after time is updated
+    DateTime selected = convertToDateTime("$hour:$minute $meridian");
+    widget.onTimeSelected?.call(selected);
+    context.pop(selected);
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10))),
       backgroundColor: Color(0xffF3F6FF),
       title: Text("Enter Time"),
       content: Container(
@@ -91,7 +105,8 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
               children: [
                 SizedBox(
                     width: .18.sw,
-                    child: Text("${widget.mealName}:", style: TextStyle(fontSize: 16.sp))),
+                    child: Text("${widget.mealName}:",
+                        style: TextStyle(fontSize: 16.sp))),
                 Spacer(flex: 4),
                 SizedBox(
                   width: 0.12.sw,
@@ -101,7 +116,8 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
                     decoration: InputDecoration(
                       hintText: "00",
                       isDense: true,
-                      contentPadding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 10),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 6.h, horizontal: 10),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.r),
                         borderSide: BorderSide(),
@@ -133,7 +149,8 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
                     decoration: InputDecoration(
                       hintText: "00",
                       isDense: true,
-                      contentPadding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 10),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 6.h, horizontal: 10),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.r),
                         borderSide: BorderSide(),
@@ -170,7 +187,8 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
                             SvgPicture.asset(
                               meridian == 'AM'
                                   ? 'assets/svg/timeSelected.svg' // Path to selected AM icon
-                                  : 'assets/svg/timeUnselected.svg', // Path to unselected AM icon
+                                  : 'assets/svg/timeUnselected.svg',
+                              // Path to unselected AM icon
                               width: 10,
                               height: 10,
                             ),
@@ -193,7 +211,8 @@ class _MealTimeDialogState extends State<MealTimeDialog> {
                             SvgPicture.asset(
                               meridian == 'PM'
                                   ? 'assets/svg/timeSelected.svg' // Path to selected PM icon
-                                  : 'assets/svg/timeUnselected.svg', // Path to unselected PM icon
+                                  : 'assets/svg/timeUnselected.svg',
+                              // Path to unselected PM icon
                               width: 10,
                               height: 10,
                             ),

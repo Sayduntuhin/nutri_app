@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:nutri_app/views/onbording/motherPage/multi_setip_page.dart';
 import '../../../../controller/onbording_screen_controller.dart';
 import '../widgets/selection_widgets.dart';
 
-class AchievingYourGoalPage extends StatelessWidget {
+class AchievingYourGoalPage extends StatefulWidget {
   const AchievingYourGoalPage({super.key});
+
+  @override
+  State<AchievingYourGoalPage> createState() => _AchievingYourGoalPageState();
+}
+
+class _AchievingYourGoalPageState extends State<AchievingYourGoalPage> {
+  final MultiStepPageController parentController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     // Get the instance of AchievingYourGoalController
-    final AchievingYourGoalController controller = Get.find();
 
     return Scaffold(
       body: Padding(
@@ -28,15 +35,15 @@ class AchievingYourGoalPage extends StatelessWidget {
             ),
             Spacer(flex: 3),
             // Each goal selection should update the controller's state
-            _buildSelectionItem(controller, 'Inconsistent routine', 'Inconsistent'),
+            _buildSelectionItem('Inconsistent routine', 'Inconsistent'),
             SizedBox(height: 15.h),
-            _buildSelectionItem(controller, 'Poor dietary choices', 'Poor'),
+            _buildSelectionItem('Poor dietary choices', 'Poor'),
             SizedBox(height: 15.h),
-            _buildSelectionItem(controller, 'Limited support system', 'Limited'),
+            _buildSelectionItem('Limited support system', 'Limited'),
             SizedBox(height: 15.h),
-            _buildSelectionItem(controller, 'Hectic lifestyle', 'Hectic'),
+            _buildSelectionItem('Hectic lifestyle', 'Hectic'),
             SizedBox(height: 15.h),
-            _buildSelectionItem(controller, 'Lack of meal ideas', 'Lack'),
+            _buildSelectionItem('Lack of meal ideas', 'Lack'),
             Spacer(flex: 3),
           ],
         ),
@@ -44,14 +51,20 @@ class AchievingYourGoalPage extends StatelessWidget {
     );
   }
 
+  void updateGoal(String goal) {
+    parentController.onboardingData.update((val) {
+      val?.achieveGoal = goal;
+    });
+  }
+
   // Helper method to create a SelectionItem
-  Widget _buildSelectionItem(AchievingYourGoalController controller, String text, String goal) {
+  Widget _buildSelectionItem(String text, String goal) {
     return Obx(() {
       return SelectionItem(
         text: text,
         iconPath: 'assets/svg/dot.svg',
-        onTap: () => controller.selectGoal(goal),
-        isSelected: controller.selectedGoal.value == goal,
+        onTap: () => updateGoal(goal),
+        isSelected: parentController.onboardingData.value.achieveGoal == goal,
       );
     });
   }

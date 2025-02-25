@@ -89,7 +89,7 @@ class _WeightPageState extends State<WeightPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 0.020.sh),
+              SizedBox(height: 0.01.sh),
               Obx(
                 () => SfRadialGauge(
                   axes: <RadialAxis>[
@@ -124,7 +124,7 @@ class _WeightPageState extends State<WeightPage> {
                       annotations: <GaugeAnnotation>[
                         GaugeAnnotation(
                           widget: Text(
-                            "${parentController.onboardingData.value.weight?.weight} ${parentController.onboardingData.value.weight?.selectedUnit}",
+                            "${parentController.onboardingData.value.weight.weight} ${parentController.onboardingData.value.weight.selectedUnit}",
                             style: TextStyle(
                                 fontSize: 20.sp, fontWeight: FontWeight.bold),
                           ),
@@ -148,7 +148,7 @@ class _WeightPageState extends State<WeightPage> {
               Padding(
                 padding: EdgeInsets.only(left: 0.2.sw, right: 0.25.sw),
                 child: Container(
-                  height: 35.h,
+                  height: 0.05.sh,
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -202,7 +202,7 @@ class _WeightPageState extends State<WeightPage> {
               if (!widget.isOnboarding)
                 Column(
                   children: [
-                    SizedBox(height: 0.2.sh),
+                    SizedBox(height: 0.1.sh),
                     CustomButton(
                       width: 340.w,
                       text: "Update Weight",
@@ -210,7 +210,7 @@ class _WeightPageState extends State<WeightPage> {
                     ),
                   ],
                 ),
-              SizedBox(height: 0.1.sh),
+              SizedBox(height: 0.2.sh,)
             ],
           ),
         ),
@@ -220,7 +220,7 @@ class _WeightPageState extends State<WeightPage> {
 
   void setWeight(String value) {
     parentController.onboardingData.update((val) {
-      val?.weight = val.weight?.copyWith(weight: double.parse(value));
+      val?.weight = val.weight.copyWith(weight: double.parse(value));
     });
   }
 }

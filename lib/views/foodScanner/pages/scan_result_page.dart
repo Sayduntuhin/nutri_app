@@ -203,10 +203,10 @@ class ScanResultPage extends StatelessWidget {
           if (value.isNotEmpty)
             Text(
               value,
-                style: TextStyle(fontSize: 12.sp,fontWeight: FontWeight.w300,color: Color(0xff6F7071))
+                style: TextStyle(fontSize: 13.sp,fontWeight: FontWeight.w400,color: Color(0xff6F7071))
             ),   Text(
               weight,
-                style: TextStyle(fontSize: 10.sp,fontWeight: FontWeight.w300,color: Color(0xff6F7071))
+                style: TextStyle(fontSize: 12.sp,fontWeight: FontWeight.w400,color: Color(0xff6F7071))
             ),
         ],
       ),

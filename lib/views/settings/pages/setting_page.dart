@@ -57,7 +57,7 @@ class SettingsPage extends StatelessWidget {
               borderRadius:
               BorderRadius.all(
                   Radius.circular(10.0))),
-          insetPadding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 10.h), // Adjust horizontal padding to change width
+          insetPadding: EdgeInsets.symmetric(horizontal: 0.03.sw, vertical: 0.01.sh), // Adjust horizontal padding to change width
           child: Container(
             width: 250.w, // Set a custom width for the dialog
             padding: EdgeInsets.all(15.w), // Internal padding for content
@@ -94,41 +94,43 @@ class SettingsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Cancel Button
-                    Container(
-                      width: 0.28.sw,
-                      height: 0.05.sh,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(5.r),
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                        child: Text(
-                          'Cancel',
-                          style: TextStyle(color: Colors.black),
+                    Expanded(
+                      child: Container(
+                        height: 0.05.sh,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          borderRadius: BorderRadius.circular(5.r),
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ),
                       ),
                     ),
-                   Spacer(flex: 2,),
+                   SizedBox(width: 10.w,),
                     // Delete Button
-                    Container(
-                      width: 0.28.sw,
-                      height: 0.05.sh,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.r),
-                        color: Colors.black,
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          // Handle account deletion here
-                        },
-                        child: Text(
-                          'Delete',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
+                    Expanded(
+                      child: Container(
+                        height: 0.05.sh,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.black,
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            // Handle account deletion here
+                          },
+                          child: Text(
+                            'Delete',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
                       ),
@@ -188,43 +190,45 @@ class SettingsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Cancel Button
-                    Container(
-                      width: 0.28.sw,
-                      height: 0.05.sh,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(5.r),
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop(); // Close the dialog
-                        },
-                        child: Text(
-                          'Cancel',
-                          style: TextStyle(color: Colors.black),
+                    Expanded(
+                      child: Container(
+                        height: 0.05.sh,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black),
+                          borderRadius: BorderRadius.circular(5.r),
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Close the dialog
+                          },
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(color: Colors.black),
+                          ),
                         ),
                       ),
                     ),
-                   Spacer(flex: 2,),
+                  SizedBox(width: 10,),
                     // Delete Button
-                    Container(
-                      width: 0.28.sw,
-                      height: 0.05.sh,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.r),
-                        color: Colors.black,
-                      ),
-                      child: TextButton(
-                        onPressed: () {
-                          context.go('/login');
-                          Navigator.of(context).pop(); // Close the dialog
-
-                        },
-                        child: Text(
-                          'Log Out',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
+                    Expanded(
+                      child: Container(
+                        height: 0.05.sh,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          color: Colors.black,
+                        ),
+                        child: TextButton(
+                          onPressed: () {
+                            context.go('/login');
+                            Navigator.of(context).pop(); // Close the dialog
+                      
+                          },
+                          child: Text(
+                            'Log Out',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
                       ),

@@ -16,7 +16,6 @@ class ChangePassword extends StatefulWidget {
 }
 
 class _ChangePasswordState extends State<ChangePassword> {
-  bool _rememberMe = false;
 
   final TextEditingController oldPasswordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
@@ -26,12 +25,13 @@ class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: SecounderyCostomAppbar(onBackPressed: Navigator.of(context).pop),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-              SizedBox(height: 0.05.sh,),
+              SizedBox(height: 0.03.sh,),
               Center(
                 child: Text(
                   'Change Your Password',
@@ -42,7 +42,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 0.05.sh,),
+              SizedBox(height: 0.04.sh,),
               Padding(
                 padding: const EdgeInsets.only(left: 35),
                 child: Text("Old Password *",style: TextStyle(fontWeight: FontWeight.w500),textAlign: TextAlign.start,),
@@ -86,10 +86,10 @@ class _ChangePasswordState extends State<ChangePassword> {
               ),
               Spacer(flex: 8),
               Center(
-            child: CustomButton(
-              width: 340.w,
-              text: "Change Password",
-              onPressed: () {
+                child: CustomButton(
+                width: 340.w,
+                text: "Change Password",
+                onPressed: () {
                 if (newPasswordController.text != confirmPasswordController.text) {
                   // Show snackbar if passwords do not match
                   ScaffoldMessenger.of(context).showSnackBar(

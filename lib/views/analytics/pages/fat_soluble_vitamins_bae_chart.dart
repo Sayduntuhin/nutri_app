@@ -167,7 +167,7 @@ class VitaminBarChartPainter extends CustomPainter {
       canvas.rotate(-50.27); // Rotate the text 90 degrees counter-clockwise
       textPainter.paint(
         canvas,
-        Offset(-40, -8),
+        Offset(-40, -5),
       );
       canvas.restore();
 

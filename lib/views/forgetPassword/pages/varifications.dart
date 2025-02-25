@@ -114,8 +114,6 @@ class _VarificationsState extends State<Varifications> {
                         textAlign: TextAlign.center,
                         keyboardType: TextInputType.number,
                         style: const TextStyle(fontSize: 24, color: Colors.black),
-                        obscureText: true,
-                        obscuringCharacter: "*",
                         decoration: InputDecoration(
                           isDense: true,
                           contentPadding:
@@ -146,7 +144,7 @@ class _VarificationsState extends State<Varifications> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("if you didn’t receive a code! ",style: TextStyle(
-                      fontSize: 12.sp,color: Color(0xff767973),fontWeight: FontWeight.bold,
+                      fontSize: 15.sp,color: Color(0xff767973),fontWeight: FontWeight.bold,
                     ),),
                     GestureDetector(
                       onTap: _isResendEnabled
@@ -159,7 +157,7 @@ class _VarificationsState extends State<Varifications> {
                         'click here...',
                         style: TextStyle(
                           color: _isResendEnabled ? Colors.black : Color(0xff767973),
-                          fontSize: 14,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -195,27 +193,6 @@ class _VarificationsState extends State<Varifications> {
             context.push('/resetpassword');
 
           }),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Already have an account?",
-                style: TextStyle(color: Color(0xff5A5A5A), fontSize: 14.sp),
-              ),
-              TextButton(
-                onPressed: () {
-                  context.go("/login");
-                },
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                      color: Color(0xff090F03),
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
         ],
       ),
     );

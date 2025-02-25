@@ -140,8 +140,8 @@ class _HomePageState extends State<HomePage> {
             _buildInfoCards(),
             SizedBox(height: 0.02.sh),
             _buildRecentActivitieswhenempty(),
-        /*    _buildRecentActivities(),
-            SizedBox(height: 100.h,)*/
+           /* _buildRecentActivities(),
+            SizedBox(height: 0.11.sh,)*/
           ],
         ),
       ),
@@ -455,41 +455,39 @@ class _HomePageState extends State<HomePage> {
   }
   Widget _buildRecentActivitieswhenempty() {
     return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Recent activities",
-              style: TextStyle(fontSize: 18.spMin, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 0.02.sh),
-            Card(
-              elevation: 0,
-              color: Color(0xffFAFAFA),
-              child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 0.016.sh,),
-                    Center(child: Text("You haven't Upload any food",style: TextStyle(color: textColor,fontWeight: FontWeight.bold,fontSize: 18.sp),)),
-                    Text("Start tracking today's meals by taking a quick picture",style: TextStyle(color: textColor,fontWeight: FontWeight.w400,fontSize: 16.sp),),
-                    Row(
-                      children: [
-                        Spacer(),
-                        SvgPicture.asset('assets/svg/down_arrow.svg',width: .12.sw,),
-                      ],
-                    ),
-                  ],
-                ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Recent activities",
+            style: TextStyle(fontSize: 18.spMin, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 0.02.sh),
+          Card(
+            elevation: 0,
+            color: Color(0xffFAFAFA),
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 0.016.sh,),
+                  Center(child: Text("You haven't Upload any food",style: TextStyle(color: textColor,fontWeight: FontWeight.bold,fontSize: 18.sp),)),
+                  Text("Start tracking today's meals by taking a quick picture",style: TextStyle(color: textColor,fontWeight: FontWeight.w400,fontSize: 16.sp),),
+                  Row(
+                    children: [
+                      Spacer(),
+                      SvgPicture.asset('assets/svg/down_arrow.svg',width: .12.sw,),
+                    ],
+                  ),
+                ],
               ),
-            )
+            ),
+          )
 
 
-          ],
-        ),
+        ],
       ),
     );
   }

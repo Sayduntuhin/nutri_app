@@ -45,7 +45,7 @@ class ChartWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Yesterday",
+                    "Today",
                     style:
                         TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400),
                   ),
@@ -82,8 +82,8 @@ class ChartWidget extends StatelessWidget {
 }
 
 class CustomChartPainter extends CustomPainter {
-  final List<double> dataPoints = [2500, 2400, 2500, 3000, 2550, 2500];
-  final List<String> xLabels = ['15', '16', '17', '18', '19', '20'];
+  final List<double> dataPoints = [2400,2500, 2400, 2500, 3000, 2550, 2500];
+  final List<String> xLabels = ['14','15', '16', '17', '18', '19', '20'];
   final List<String> yLabels = ['500', '1000', '1500', '2000', '2500', '3000'];
 
   @override
@@ -157,9 +157,13 @@ class CustomChartPainter extends CustomPainter {
     canvas.drawPath(fillPath, fillPaint);
     canvas.drawPath(path, linePaint);
 
-    for (var point in points) {
-      canvas.drawCircle(point, 6, dotPaint);
-      canvas.drawCircle(point, 4, borderPaint);
+    // Loop through all points
+    for (int i = 0; i < points.length; i++) {
+      // For all points except the last one, use the original color
+      borderPaint.color = i == points.length - 1 ? Color(0xffA1CE50): Colors.white;
+
+      canvas.drawCircle(points[i], 6, dotPaint);
+      canvas.drawCircle(points[i], 4, borderPaint);
     }
 
     TextPainter textPainter = TextPainter(

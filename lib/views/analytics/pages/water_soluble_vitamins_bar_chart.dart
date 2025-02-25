@@ -4,6 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../widget/calander_dialoge.dart';
 import '../widget/calander_selection_widget.dart';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import '../widget/calander_dialoge.dart';
+import '../widget/calander_selection_widget.dart';
+
 class WaterSolubleVitaminsBarChart extends StatefulWidget {
   const WaterSolubleVitaminsBarChart({super.key});
 
@@ -50,9 +56,9 @@ class _WaterSolubleVitaminsBarChartState
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10.w),
+      padding: EdgeInsets.all(10.w), // Ensure padding is responsive
       child: SizedBox(
-        height: .6.sh,
+        height: .6.sh, // Responsive height
         child: Card(
           color: Colors.white,
           elevation: .1,
@@ -65,7 +71,7 @@ class _WaterSolubleVitaminsBarChartState
                 date: _formatDate(_selectedDate),
                 onCalendarTap: _showCalendarDialog, // Pass the calendar dialog callback
               ),
-              SizedBox(height: .02.sh),
+              SizedBox(height: .02.sh), // Ensure spacing is responsive
               Row(
                 children: [
                   Spacer(),
@@ -75,11 +81,11 @@ class _WaterSolubleVitaminsBarChartState
                   Spacer(flex: 5),
                 ],
               ),
-              SizedBox(height: .03.sh),
+              SizedBox(height: .03.sh), // Ensure spacing is responsive
 
               // Bar chart drawn using CustomPainter
               CustomPaint(
-                size: Size(.7.sw, .3.sh), // Chart size
+                size: Size(.7.sw, .3.sh), // Responsive chart size
                 painter: WaterSolubleVitaminsBarChartPainter(),
               ),
               Spacer(flex: 3),
@@ -115,6 +121,7 @@ class _WaterSolubleVitaminsBarChartState
     );
   }
 }
+
 
 
 // Custom Painter to draw the horizontal bar chart
@@ -179,7 +186,7 @@ class WaterSolubleVitaminsBarChartPainter extends CustomPainter {
       canvas.rotate(-50.27); // Rotate the text 90 degrees counter-clockwise
       textPainter.paint(
         canvas,
-        Offset(-50, -8),
+        Offset(-50, -5),
       );
       canvas.restore();
 

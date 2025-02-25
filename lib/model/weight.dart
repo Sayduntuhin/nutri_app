@@ -1,4 +1,5 @@
 class Weight {
+
   double? weight;
   String selectedUnit;
 
@@ -12,5 +13,10 @@ class Weight {
       weight: weight ?? this.weight,
       selectedUnit: selectedUnit ?? this.selectedUnit,
     );
+  }
+
+  @override
+  String toString() {
+    return 'Weight{weight: $weight, selectedUnit: $selectedUnit}';
   }
 }

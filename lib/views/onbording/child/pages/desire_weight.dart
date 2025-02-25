@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:nutri_app/views/onbording/motherPage/multi_setip_page.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
 
 import '../../../widgets/custom_button.dart';
@@ -7,37 +9,42 @@ import '../../../widgets/secoundery_costom_appbar.dart';
 import '../widgets/unitselectionButton_widgets.dart';
 // Assuming you have this widget
 
-
-
-
-
 class DesireWeightPage extends StatefulWidget {
   final bool isOnboarding;
+
   const DesireWeightPage({super.key, required this.isOnboarding});
 
   @override
   State<DesireWeightPage> createState() => _DesireWeightPageState();
 }
 
-
 class _DesireWeightPageState extends State<DesireWeightPage> {
-  double weight = 0.0;
-  String selectedUnit = "Kilogram";
+  // double weight = 0.0;
+  // String selectedUnit = "Kilogram";
   final TextEditingController weightController = TextEditingController();
 
+  final MultiStepPageController parentController = Get.find();
+
   void onUnitSelect(String unit) {
-    setState(() {
-      selectedUnit = unit;
+    parentController.onboardingData.update((val) {
+      val?.desiredWeight = val.desiredWeight.copyWith(selectedUnit: unit);
     });
   }
 
-  String get weightDisplay {
-    if (selectedUnit == "Pounds") {
-      return "${(weight * 2.20462).toStringAsFixed(2)} lbs"; // Convert kg to pounds
-    } else {
-      return "$weight kg";
-    }
+  void onWeightChange(double weight) {
+    parentController.onboardingData.update((val) {
+      val?.desiredWeight = val.desiredWeight.copyWith(weight: weight);
+    });
   }
+
+
+  // String get weightDisplay {
+  //   if (selectedUnit == "Pounds") {
+  //     return "${(weight * 2.20462).toStringAsFixed(2)} lbs"; // Convert kg to pounds
+  //   } else {
+  //     return "$weight kg";
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -75,50 +82,57 @@ class _DesireWeightPageState extends State<DesireWeightPage> {
                 border: Border.all(color: Color(0xffE0E0E0), width: 1.0),
                 borderRadius: BorderRadius.circular(8.r),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  UnitSelectionButton(
-                    unitText: "Kilogram",
-                    selectedUnit: selectedUnit,
-                    onUnitSelect: onUnitSelect,
-                    width: 0.38.sw,
-                  ),
-                  UnitSelectionButton(
-                    unitText: "Pounds",
-                    selectedUnit: selectedUnit,
-                    onUnitSelect: onUnitSelect,
-                    width: 0.38.sw,
-                  ),
-                ],
-              ),
+              child: Obx(() => Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      UnitSelectionButton(
+                        unitText: "Kilogram",
+                        selectedUnit: parentController.onboardingData.value.desiredWeight.selectedUnit,
+                        onUnitSelect: onUnitSelect,
+                        width: 0.38.sw,
+                      ),
+                      UnitSelectionButton(
+                        unitText: "Pounds",
+                        selectedUnit: parentController.onboardingData.value.desiredWeight.selectedUnit,
+                        onUnitSelect: onUnitSelect,
+                        width: 0.38.sw,
+                      ),
+                    ],
+                  )),
             ),
             Spacer(
               flex: 1,
             ),
-            SfLinearGauge(
-              minimum: 0,
-              maximum: 200,
-              maximumLabels: 2,
-              markerPointers: [
-                LinearShapePointer(
-                  value: weight,
-                  shapeType: LinearShapePointerType.invertedTriangle,
-                  color: Colors.red,
-                ),
-              ],
-              barPointers: [
-                LinearBarPointer(
+            Obx(() {
+              double weight =
+                  parentController.onboardingData.value.desiredWeight.weight ??
+                      0.0;
+              return SfLinearGauge(
+                minimum: 0,
+                maximum: 200,
+                maximumLabels: 2,
+                markerPointers: [
+                  LinearShapePointer(
+                    value: weight,
+                    shapeType: LinearShapePointerType.invertedTriangle,
+                    color: Colors.red,
+                    onChanged: onWeightChange,
+                  ),
+                ],
+                barPointers: [
+                  LinearBarPointer(
                     thickness: 15,
                     edgeStyle: LinearEdgeStyle.bothCurve,
                     value: weight,
-                    color: Colors.black),
-              ],
-              axisTrackStyle: LinearAxisTrackStyle(
-                thickness: 15,
-                edgeStyle: LinearEdgeStyle.bothCurve,
-              ),
-            ),
+                    color: Colors.black,
+                  ),
+                ],
+                axisTrackStyle: LinearAxisTrackStyle(
+                  thickness: 15,
+                  edgeStyle: LinearEdgeStyle.bothCurve,
+                ),
+              );
+            }),
             Spacer(),
             Padding(
               padding: EdgeInsets.only(left: 0.2.sw, right: 0.25.sw),
@@ -171,10 +185,7 @@ class _DesireWeightPageState extends State<DesireWeightPage> {
                         ),
                         keyboardType: TextInputType.number,
                         onChanged: (value) {
-                          setState(() {
-                            weight = double.tryParse(value) ??
-                                weight; // Update weight when entered
-                          });
+                          onWeightChange(double.tryParse(value) ?? 0.0);
                         },
                       ),
                     ),

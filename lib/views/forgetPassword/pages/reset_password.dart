@@ -59,30 +59,6 @@ class _ResetPasswordState extends State<ResetPassword> {
                   isPassword: true,
                 ),
               ),
-              Row(
-                children: [
-                  SizedBox(width: 10.w,),
-                  SizedBox(
-                    width: 50.w,
-                    child: Checkbox(
-                      value: _rememberMe,
-                      onChanged: (value) {
-                        setState(() {
-                          _rememberMe = value!;
-                        });
-                      },
-                      activeColor: Colors.black,
-                    ),
-                  ),
-                  Text(
-                    "Remember me",
-                    style: TextStyle(
-                        fontSize: 12.sp,
-                        color: Color(0xff6B6B6B),
-                        letterSpacing: 1.2),
-                  ),
-                ],
-              ),
             ],
           ),
 
@@ -104,27 +80,6 @@ class _ResetPasswordState extends State<ResetPassword> {
                 context.go("/login");
               }
             },
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Already have an account?",
-                style: TextStyle(color: Color(0xff5A5A5A), fontSize: 14.sp),
-              ),
-              TextButton(
-                onPressed: () {
-                  context.go("/login");
-                },
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                      color: Color(0xff090F03),
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
           ),
         ],
       ),

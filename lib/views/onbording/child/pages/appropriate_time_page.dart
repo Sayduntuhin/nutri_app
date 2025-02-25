@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:nutri_app/themes/text_size.dart';
+import 'package:nutri_app/views/onbording/motherPage/multi_setip_page.dart';
 
 class AppropriateTimePage extends StatefulWidget {
   const AppropriateTimePage({super.key});
@@ -10,6 +13,7 @@ class AppropriateTimePage extends StatefulWidget {
 }
 
 class _AppropriateTimePage extends State<AppropriateTimePage> {
+final MultiStepPageController parentController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +33,16 @@ class _AppropriateTimePage extends State<AppropriateTimePage> {
             Spacer(
               flex: 2,
             ),
-            Image.asset("assets/images/weight_maintain.png"),
+            Obx(() {
+              if(parentController.onboardingData.value.chooseGoal == 'loss_weight')
+                return Image.asset("assets/images/weight_loss.png");
+              else if(parentController.onboardingData.value.chooseGoal == 'gain_weight')
+                return Image.asset("assets/images/weight_gain.png");
+              else if(parentController.onboardingData.value.chooseGoal == 'maintain_weight')
+                return Image.asset("assets/images/weight_maintain.png");
+              else
+              return Image.asset("assets/images/just_exploring.png");
+            }),
             Spacer(
               flex: 5,
             ),

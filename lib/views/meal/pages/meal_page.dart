@@ -69,8 +69,9 @@ class _MealPageState extends State<MealPage> {
         }
       },
       child: Card(
+
         color: Color(0xffFCFCFC),
-        elevation: 1,
+        elevation: 0.5,
         child: SizedBox(
           height: 60.h,
           child: Row(

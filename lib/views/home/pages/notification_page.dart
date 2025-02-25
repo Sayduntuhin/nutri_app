@@ -61,7 +61,7 @@ class _NotificationPageState extends State<NotificationPage> {
       onTap: () {},
       child: Card(
         color: Color(0xffFCFCFC),
-        elevation: 1,
+        elevation: 0.5,
         child: SizedBox(
           height: 50.h,
           child: Row(
